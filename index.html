@@ -46,9 +46,24 @@ body {
 .screen { display: none; padding: 20px 20px 32px; max-width: 560px; margin: 0 auto; }
 .screen.active { display: block; }
 
+/* ─── WELCOME + PROGRESS ─── */
+.welcome-block { margin-bottom: 28px; }
+.welcome-name { font-size: 28px; font-weight: 900; letter-spacing: -0.8px; color: var(--text); margin-bottom: 2px; }
+.welcome-date { font-size: 15px; font-weight: 600; color: var(--text2); margin-bottom: 16px; }
+.workout-progress {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.wp-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+.wp-label { font-size: 14px; font-weight: 700; color: var(--text); }
+.wp-count { font-size: 14px; font-weight: 800; color: var(--accent); }
+.wp-bar-track { height: 10px; background: #f0f0f2; border-radius: 5px; overflow: hidden; }
+.wp-bar-fill { height: 100%; border-radius: 5px; background: linear-gradient(90deg, var(--accent) 0%, var(--accent2) 100%); transition: width 0.6s ease; min-width: 0; }
+.wp-sub { font-size: 12px; color: var(--text3); margin-top: 8px; }
+
 /* ─── TODAY HERO ─── */
-.today-greeting { font-size: 15px; font-weight: 600; color: var(--text2); letter-spacing: -0.2px; margin-bottom: 4px; }
-.today-date { font-size: 32px; font-weight: 800; letter-spacing: -1px; margin-bottom: 24px; color: var(--text); }
 .today-card {
   background: linear-gradient(145deg, #1a1a24 0%, #2a1a2e 50%, var(--accent) 150%);
   border-radius: var(--radius);
@@ -441,7 +456,7 @@ body {
 .off-day-card p { font-size: 15px; color: var(--text2); }
 
 @media (max-width: 380px) {
-  .today-date { font-size: 26px; }
+  .welcome-name { font-size: 24px; }
   .today-plan-text { font-size: 19px; }
   .timer-display { font-size: 72px; }
 }
@@ -451,8 +466,18 @@ body {
 
 <!-- ═══ TODAY ═══ -->
 <div class="screen active" id="screen-today">
-  <div class="today-greeting" id="today-greeting">Good morning, Maysa</div>
-  <div class="today-date" id="today-date"></div>
+  <div class="welcome-block">
+    <div class="welcome-name" id="welcome-name">Welcome, Maysa</div>
+    <div class="welcome-date" id="welcome-date"></div>
+    <div class="workout-progress">
+      <div class="wp-top">
+        <span class="wp-label">Workouts completed</span>
+        <span class="wp-count" id="wp-count">0 / 0</span>
+      </div>
+      <div class="wp-bar-track"><div class="wp-bar-fill" id="wp-bar-fill" style="width:0%"></div></div>
+      <div class="wp-sub" id="wp-sub">Finish a guided workout to track your progress!</div>
+    </div>
+  </div>
   <div id="today-hero"></div>
   <div id="today-actions"></div>
   <div class="phase-progress" id="phase-progress"></div>
@@ -1409,10 +1434,56 @@ function getSuggestedStick(dayOfWeek) {
   return STICK_ROUTINES.find(r => r.id === "stk-15");
 }
 
+// ─── WORKOUT PROGRESS TRACKING ───
+function getTotalTrainingDays() {
+  let count = 0;
+  for (const w of WEEKLY_PLAN) {
+    for (const d of w.days) {
+      if (!d.t.includes("DAY OFF") && !d.t.includes("JAPAN") && !d.t.includes("Zero hockey")) count++;
+    }
+  }
+  return count;
+}
+
+function getCompletedWorkouts() {
+  try {
+    const data = JSON.parse(localStorage.getItem("km-completed") || "[]");
+    return Array.isArray(data) ? data : [];
+  } catch { return []; }
+}
+
+function recordCompletedWorkout() {
+  const today = new Date().toISOString().slice(0, 10);
+  const completed = getCompletedWorkouts();
+  if (!completed.includes(today)) {
+    completed.push(today);
+    localStorage.setItem("km-completed", JSON.stringify(completed));
+  }
+  renderProgress();
+}
+
+function renderProgress() {
+  const total = getTotalTrainingDays();
+  const done = getCompletedWorkouts().length;
+  const pct = total > 0 ? Math.min((done / total) * 100, 100) : 0;
+  document.getElementById("wp-count").textContent = `${done} / ${total}`;
+  document.getElementById("wp-bar-fill").style.width = pct.toFixed(1) + "%";
+
+  let sub = "";
+  if (done === 0) sub = "Finish a guided workout to start tracking!";
+  else if (pct < 25) sub = "You're just getting started. Keep showing up!";
+  else if (pct < 50) sub = "Building momentum. You're getting stronger!";
+  else if (pct < 75) sub = "Over halfway there. You're a machine!";
+  else if (pct < 100) sub = "Almost there. The finish line is in sight!";
+  else sub = "ALL DONE! You crushed it. Dominate the season.";
+  document.getElementById("wp-sub").textContent = sub;
+}
+
 function renderToday() {
   const info = getTodayInfo();
-  document.getElementById("today-greeting").textContent = info.greeting + ", Maysa";
-  document.getElementById("today-date").textContent = `${info.dayName}, ${info.monthName} ${info.dateNum}`;
+  document.getElementById("welcome-name").textContent = info.greeting + ", Maysa";
+  document.getElementById("welcome-date").textContent = `${info.dayName}, ${info.monthName} ${info.dateNum}`;
+  renderProgress();
 
   const heroEl = document.getElementById("today-hero");
   const isOffDay = info.dayOfWeek === 0;
@@ -1714,6 +1785,7 @@ function finishWorkout() {
   tActive.style.display = "none"; tDone.style.display = "";
   document.getElementById("done-time").textContent = fmtMMSS(Math.round((Date.now() - state.startedAt) / 1000));
   document.getElementById("done-steps").textContent = state.routine.steps.length;
+  recordCompletedWorkout();
   beep(); setTimeout(beep, 250); setTimeout(beep, 500);
 }
 
