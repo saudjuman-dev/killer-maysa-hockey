@@ -34,6 +34,7 @@
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   background: var(--bg);
+  background-image: repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(10,132,255,0.012) 60px, rgba(10,132,255,0.012) 61px);
   color: var(--text);
   line-height: 1.5;
   -webkit-text-size-adjust: 100%;
@@ -48,7 +49,14 @@ body {
 
 /* ─── WELCOME + PROGRESS ─── */
 .welcome-block { margin-bottom: 28px; }
-.welcome-name { font-size: 28px; font-weight: 900; letter-spacing: -0.8px; color: var(--text); margin-bottom: 2px; }
+.welcome-name { font-size: 28px; font-weight: 900; letter-spacing: -0.8px; color: var(--text); margin-bottom: 2px; display: flex; align-items: center; gap: 10px; }
+.welcome-name .km-logo {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: linear-gradient(135deg, var(--dark) 0%, var(--accent) 100%);
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 14px; font-weight: 900; letter-spacing: 0;
+  flex-shrink: 0;
+}
 .welcome-date { font-size: 15px; font-weight: 600; color: var(--text2); margin-bottom: 16px; }
 .workout-progress {
   background: var(--surface);
@@ -442,6 +450,101 @@ body {
 .timer-done .stat-num { font-size: 32px; font-weight: 800; }
 .timer-done .stat-label { font-size: 13px; opacity: 0.6; letter-spacing: 1px; text-transform: uppercase; }
 
+/* ─── HOCKEY DECORATIONS ─── */
+.hockey-accent {
+  position: absolute; pointer-events: none; opacity: 0.07;
+}
+.today-card { position: relative; overflow: hidden; }
+.today-card .hockey-stick {
+  position: absolute; right: -10px; bottom: -20px;
+  width: 120px; height: 120px; opacity: 0.12;
+}
+.today-card .hockey-puck {
+  position: absolute; right: 80px; bottom: 10px;
+  width: 30px; height: 30px; opacity: 0.15;
+}
+.welcome-block { position: relative; }
+.welcome-block .hockey-bg {
+  position: absolute; top: -10px; right: -10px;
+  width: 100px; height: 100px; opacity: 0.04;
+}
+.rink-line {
+  height: 3px;
+  background: linear-gradient(90deg, transparent 0%, var(--accent) 20%, var(--accent) 80%, transparent 100%);
+  border-radius: 2px;
+  margin: 20px 0;
+  opacity: 0.15;
+}
+.ice-texture {
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 40px,
+    rgba(10,132,255,0.015) 40px,
+    rgba(10,132,255,0.015) 41px
+  );
+}
+
+/* ─── TIMER SHOUT ─── */
+.timer-shout {
+  position: fixed; inset: 0;
+  background: linear-gradient(160deg, #0f0f14 0%, #1a1a2e 40%, var(--accent) 140%);
+  color: white; z-index: 1100;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; padding: 40px;
+  animation: shoutIn 0.3s ease-out;
+}
+@keyframes shoutIn {
+  from { opacity: 0; transform: scale(1.1); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes shoutOut {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.95); }
+}
+.timer-shout.fade-out { animation: shoutOut 0.3s ease-in forwards; }
+.timer-shout .shout-icon { font-size: 64px; margin-bottom: 16px; }
+.timer-shout .shout-text { font-size: 32px; font-weight: 900; letter-spacing: -0.5px; line-height: 1.2; }
+.timer-shout .shout-sub { font-size: 16px; opacity: 0.7; margin-top: 10px; font-weight: 600; }
+
+/* ─── STEP TRANSITION MESSAGE ─── */
+.step-msg {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  padding: 16px 28px; border-radius: 16px;
+  font-size: 18px; font-weight: 800;
+  color: white; text-align: center;
+  z-index: 10; white-space: nowrap;
+  animation: msgPop 0.3s ease-out;
+  pointer-events: none;
+}
+@keyframes msgPop {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+@keyframes msgFade {
+  from { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  to { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+}
+.step-msg.fade-out { animation: msgFade 0.3s ease-in forwards; }
+
+/* ─── RECOVERY CARD ─── */
+.recovery-card {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 20px;
+  margin-top: 20px;
+  text-align: left;
+}
+.recovery-card h4 { font-size: 14px; font-weight: 800; letter-spacing: 1px; opacity: 0.6; text-transform: uppercase; margin-bottom: 12px; }
+.recovery-item { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; font-size: 14px; opacity: 0.85; }
+.recovery-item:last-child { margin-bottom: 0; }
+.recovery-item .ri-icon { font-size: 20px; flex-shrink: 0; line-height: 1.4; }
+
 /* ─── OFF DAY ─── */
 .off-day-card {
   background: var(--surface);
@@ -626,11 +729,18 @@ body {
     </div>
   </div>
   <div id="timer-done-screen" class="timer-done" style="display:none;">
-    <h2>KILLER WORK!</h2>
+    <h2>KILLER WORK, MAYSA!</h2>
     <p>Champions are built one rep at a time.</p>
     <div class="stat"><div class="stat-num" id="done-time">0:00</div><div class="stat-label">Total Time</div></div>
     <div class="stat"><div class="stat-num" id="done-steps">0</div><div class="stat-label">Steps Done</div></div>
-    <div class="timer-buttons"><button class="timer-btn primary" id="timer-finish">Done</button></div>
+    <div class="recovery-card">
+      <h4>Recovery Time</h4>
+      <div class="recovery-item"><span class="ri-icon">&#128167;</span><span><strong>Hydrate now.</strong> Drink a full glass of water in the next 10 minutes.</span></div>
+      <div class="recovery-item"><span class="ri-icon">&#127836;</span><span><strong>Eat within 30 min.</strong> Protein + carbs — chocolate milk, banana + PB, or a real meal.</span></div>
+      <div class="recovery-item"><span class="ri-icon">&#129526;</span><span><strong>Stretch it out.</strong> 5 min of hip, hamstring and calf stretches while your muscles are warm.</span></div>
+      <div class="recovery-item"><span class="ri-icon">&#128564;</span><span><strong>Rest up tonight.</strong> Your body gets stronger while you sleep — aim for 8-9 hours.</span></div>
+    </div>
+    <div class="timer-buttons" style="margin-top:24px;"><button class="timer-btn primary" id="timer-finish">Done</button></div>
   </div>
 </div>
 
@@ -1481,7 +1591,7 @@ function renderProgress() {
 
 function renderToday() {
   const info = getTodayInfo();
-  document.getElementById("welcome-name").textContent = info.greeting + ", Maysa";
+  document.getElementById("welcome-name").innerHTML = `<span class="km-logo">KM</span>${info.greeting}, Maysa`;
   document.getElementById("welcome-date").textContent = `${info.dayName}, ${info.monthName} ${info.dateNum}`;
   renderProgress();
 
@@ -1500,10 +1610,15 @@ function renderToday() {
     const planText = info.todayPlan || getDefaultPlan(info.dayOfWeek);
     heroEl.innerHTML = `
       <div class="today-card">
+        <svg class="hockey-stick" viewBox="0 0 100 100" fill="white"><path d="M75 5 L75 70 Q75 85 60 90 L20 95 L20 85 L55 80 Q65 78 65 70 L65 5 Z"/></svg>
+        <svg class="hockey-puck" viewBox="0 0 40 20" fill="white"><ellipse cx="20" cy="10" rx="18" ry="8"/></svg>
         ${info.phase ? `<div class="today-phase-tag">${info.phase}${info.weekNum ? ' · WEEK ' + info.weekNum : ''}</div>` : ''}
         <div class="today-plan-text">${planText}</div>
       </div>`;
   }
+
+  // Rink line divider
+  heroEl.innerHTML += '<div class="rink-line"></div>';
 
   // Action buttons
   const actionsEl = document.getElementById("today-actions");
@@ -1731,12 +1846,42 @@ function findRoutine(id) {
   return null;
 }
 
+function showShout(icon, text, sub, duration, callback) {
+  const el = document.createElement("div");
+  el.className = "timer-shout";
+  el.innerHTML = `<div class="shout-icon">${icon}</div><div class="shout-text">${text}</div>${sub ? `<div class="shout-sub">${sub}</div>` : ''}`;
+  document.body.appendChild(el);
+  setTimeout(() => {
+    el.classList.add("fade-out");
+    setTimeout(() => { el.remove(); if (callback) callback(); }, 300);
+  }, duration);
+}
+
+function showStepMsg(text) {
+  const existing = document.querySelector(".step-msg");
+  if (existing) existing.remove();
+  const el = document.createElement("div");
+  el.className = "step-msg";
+  el.textContent = text;
+  document.getElementById("timer-active").appendChild(el);
+  setTimeout(() => {
+    el.classList.add("fade-out");
+    setTimeout(() => el.remove(), 300);
+  }, 1500);
+}
+
 function startWorkout(routineId) {
   const r = findRoutine(routineId); if (!r) return;
-  state = { routine: r, stepIdx: 0, secLeft: r.steps[0].sec, paused: false, completedSec: 0, startedAt: Date.now() };
+  state = { routine: r, stepIdx: 0, secLeft: r.steps[0].sec, paused: true, completedSec: 0, startedAt: Date.now() };
   tActive.style.display = ""; tDone.style.display = "none";
   modal.classList.add("show"); document.body.style.overflow = "hidden";
-  renderTimer(); ensureTick();
+  renderTimer();
+  showShout("&#127954;", "LET'S GO MAYSA!", r.name, 1800, () => {
+    state.paused = false;
+    state.startedAt = Date.now();
+    ensureTick();
+    renderTimer();
+  });
 }
 
 function renderTimer() {
@@ -1763,6 +1908,7 @@ function ensureTick() {
       beep(); state.completedSec += state.routine.steps[state.stepIdx].sec; state.stepIdx++;
       if (state.stepIdx >= state.routine.steps.length) { finishWorkout(); return; }
       state.secLeft = state.routine.steps[state.stepIdx].sec;
+      showStepMsg("Stop Maysa, Good Work!");
     }
     renderTimer();
   }, 1000);
