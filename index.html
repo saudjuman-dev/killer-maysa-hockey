@@ -430,6 +430,25 @@ body {
 }
 .timer-progress { height: 6px; background: rgba(255,255,255,0.12); border-radius: 3px; overflow: hidden; margin-bottom: 32px; }
 .timer-progress-bar { height: 100%; background: white; border-radius: 3px; transition: width 1s linear; }
+.timer-reps-mode .timer-display { font-size: 48px; opacity: 0.3; }
+.timer-reps-mode .timer-progress { display: none; }
+.timer-reps-info { font-size: 20px; font-weight: 800; text-align: center; margin-bottom: 16px; letter-spacing: -0.3px; }
+.timer-done-reps {
+  padding: 18px 40px;
+  background: var(--green, #30d158); color: white;
+  border: none; border-radius: 16px;
+  font-size: 20px; font-weight: 800;
+  cursor: pointer; min-height: 60px;
+  font-family: inherit;
+  display: none;
+  margin: 0 auto 20px;
+  box-shadow: 0 4px 16px rgba(48,209,88,0.4);
+  transition: transform 0.12s;
+}
+.timer-done-reps:active { transform: scale(0.96); }
+.timer-reps-mode .timer-done-reps { display: block; }
+.timer-reps-mode #timer-pause { display: none; }
+.timer-reps-mode #timer-add { display: none; }
 .timer-buttons { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: auto; padding-top: 20px; }
 .timer-btn {
   padding: 16px 22px;
@@ -441,6 +460,18 @@ body {
 }
 .timer-btn:active { background: rgba(255,255,255,0.2); }
 .timer-btn.primary { background: white; color: var(--accent); border-color: white; flex: 1; max-width: 240px; }
+.timer-video-link { text-align: center; margin-bottom: 12px; }
+.timer-video-link a {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 10px 18px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 12px;
+  color: white; text-decoration: none;
+  font-size: 13px; font-weight: 600;
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+}
+.timer-video-link a:active { background: rgba(255,255,255,0.2); }
 .timer-next-up { font-size: 13px; opacity: 0.5; text-align: center; margin-bottom: 10px; }
 .timer-next-up strong { opacity: 0.9; font-size: 14px; }
 .timer-done { text-align: center; padding-top: 60px; }
@@ -450,10 +481,13 @@ body {
 .timer-done .stat-num { font-size: 32px; font-weight: 800; }
 .timer-done .stat-label { font-size: 13px; opacity: 0.6; letter-spacing: 1px; text-transform: uppercase; }
 
-/* ─── HOCKEY DECORATIONS ─── */
-.hockey-accent {
-  position: absolute; pointer-events: none; opacity: 0.07;
+/* ─── HOCKEY RINK BACKGROUND ─── */
+.rink-bg {
+  position: fixed; inset: 0; pointer-events: none; z-index: -1; overflow: hidden;
 }
+.rink-bg svg { width: 100%; height: 100%; opacity: 0.035; }
+
+/* ─── HOCKEY DECORATIONS ─── */
 .today-card { position: relative; overflow: hidden; }
 .today-card .hockey-stick {
   position: absolute; right: -10px; bottom: -20px;
@@ -464,10 +498,6 @@ body {
   width: 30px; height: 30px; opacity: 0.15;
 }
 .welcome-block { position: relative; }
-.welcome-block .hockey-bg {
-  position: absolute; top: -10px; right: -10px;
-  width: 100px; height: 100px; opacity: 0.04;
-}
 .rink-line {
   height: 3px;
   background: linear-gradient(90deg, transparent 0%, var(--accent) 20%, var(--accent) 80%, transparent 100%);
@@ -475,14 +505,40 @@ body {
   margin: 20px 0;
   opacity: 0.15;
 }
-.ice-texture {
-  background: repeating-linear-gradient(
-    90deg,
-    transparent,
-    transparent 40px,
-    rgba(10,132,255,0.015) 40px,
-    rgba(10,132,255,0.015) 41px
-  );
+/* ─── PLAYER ILLUSTRATION ─── */
+.player-card {
+  background: linear-gradient(135deg, #1a1a24 0%, #2a1a2e 60%, var(--accent) 150%);
+  border-radius: var(--radius);
+  padding: 0;
+  margin-bottom: 20px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  min-height: 180px;
+  position: relative;
+}
+.player-card .player-text {
+  padding: 24px;
+  color: white;
+  flex: 1;
+  z-index: 1;
+}
+.player-card .player-text h2 {
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  margin-bottom: 4px;
+}
+.player-card .player-text p {
+  font-size: 13px;
+  opacity: 0.7;
+}
+.player-card .player-svg {
+  width: 150px;
+  flex-shrink: 0;
+  align-self: flex-end;
+  margin-right: 10px;
+  margin-bottom: -2px;
 }
 
 /* ─── TIMER SHOUT ─── */
@@ -567,6 +623,39 @@ body {
 </head>
 <body>
 
+<!-- ═══ RINK BACKGROUND ═══ -->
+<div class="rink-bg">
+<svg viewBox="0 0 600 900" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <!-- Rink outline -->
+  <rect x="40" y="40" width="520" height="820" rx="100" stroke="#0a84ff" stroke-width="3" fill="none"/>
+  <!-- Center line -->
+  <line x1="40" y1="450" x2="560" y2="450" stroke="#e8364e" stroke-width="4"/>
+  <!-- Center circle -->
+  <circle cx="300" cy="450" r="60" stroke="#0a84ff" stroke-width="2" fill="none"/>
+  <circle cx="300" cy="450" r="4" fill="#0a84ff"/>
+  <!-- Blue lines -->
+  <line x1="40" y1="310" x2="560" y2="310" stroke="#0a84ff" stroke-width="3"/>
+  <line x1="40" y1="590" x2="560" y2="590" stroke="#0a84ff" stroke-width="3"/>
+  <!-- Face-off circles -->
+  <circle cx="180" cy="220" r="45" stroke="#e8364e" stroke-width="1.5" fill="none"/>
+  <circle cx="420" cy="220" r="45" stroke="#e8364e" stroke-width="1.5" fill="none"/>
+  <circle cx="180" cy="680" r="45" stroke="#e8364e" stroke-width="1.5" fill="none"/>
+  <circle cx="420" cy="680" r="45" stroke="#e8364e" stroke-width="1.5" fill="none"/>
+  <!-- Face-off dots -->
+  <circle cx="180" cy="220" r="4" fill="#e8364e"/>
+  <circle cx="420" cy="220" r="4" fill="#e8364e"/>
+  <circle cx="180" cy="680" r="4" fill="#e8364e"/>
+  <circle cx="420" cy="680" r="4" fill="#e8364e"/>
+  <circle cx="180" cy="390" r="4" fill="#e8364e"/>
+  <circle cx="420" cy="390" r="4" fill="#e8364e"/>
+  <circle cx="180" cy="510" r="4" fill="#e8364e"/>
+  <circle cx="420" cy="510" r="4" fill="#e8364e"/>
+  <!-- Goal creases -->
+  <path d="M260 80 Q300 110 340 80" stroke="#e8364e" stroke-width="1.5" fill="none"/>
+  <path d="M260 820 Q300 790 340 820" stroke="#e8364e" stroke-width="1.5" fill="none"/>
+</svg>
+</div>
+
 <!-- ═══ TODAY ═══ -->
 <div class="screen active" id="screen-today">
   <div class="welcome-block">
@@ -580,6 +669,61 @@ body {
       <div class="wp-bar-track"><div class="wp-bar-fill" id="wp-bar-fill" style="width:0%"></div></div>
       <div class="wp-sub" id="wp-sub">Finish a guided workout to track your progress!</div>
     </div>
+  </div>
+  <div class="player-card">
+    <div class="player-text">
+      <h2>Killer Maysa</h2>
+      <p>Right Wing Forward #58</p>
+    </div>
+    <svg class="player-svg" viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg">
+      <!-- Hockey player - brown girl, red #58 jersey, "JUMAN" -->
+      <!-- Skates -->
+      <path d="M72 268 L60 268 Q55 268 55 263 L55 258 L75 255 Z" fill="#333"/>
+      <path d="M128 268 L116 268 Q111 268 111 263 L111 258 L131 255 Z" fill="#333"/>
+      <line x1="58" y1="266" x2="73" y2="266" stroke="#ccc" stroke-width="1.5"/>
+      <line x1="114" y1="266" x2="129" y2="266" stroke="#ccc" stroke-width="1.5"/>
+      <!-- Legs (dark pants) -->
+      <path d="M80 200 L72 255 L82 255 L90 210 Z" fill="#1a1a2e"/>
+      <path d="M110 200 L125 255 L115 255 L105 210 Z" fill="#1a1a2e"/>
+      <!-- Socks -->
+      <rect x="70" y="235" width="14" height="22" rx="4" fill="#e8364e"/>
+      <rect x="113" y="235" width="14" height="22" rx="4" fill="#e8364e"/>
+      <!-- Jersey body (red) -->
+      <path d="M70 110 Q68 115 65 150 Q62 185 75 205 L120 205 Q133 185 130 150 Q127 115 125 110 Z" fill="#e8364e"/>
+      <!-- Pants waist -->
+      <rect x="72" y="195" width="52" height="15" rx="4" fill="#1a1a2e"/>
+      <!-- Jersey number 58 (front) -->
+      <text x="97" y="170" text-anchor="middle" font-family="Inter,sans-serif" font-size="28" font-weight="900" fill="white" opacity="0.95">58</text>
+      <!-- Arms -->
+      <path d="M65 120 L40 155 L45 165 L70 135" fill="#e8364e"/>
+      <path d="M130 120 L158 148 L153 158 L125 135" fill="#e8364e"/>
+      <!-- Gloves -->
+      <ellipse cx="42" cy="162" rx="10" ry="8" fill="#1a1a2e"/>
+      <ellipse cx="156" cy="155" rx="10" ry="8" fill="#1a1a2e"/>
+      <!-- Hockey stick -->
+      <line x1="38" y1="160" x2="20" y2="250" stroke="#c4956a" stroke-width="4" stroke-linecap="round"/>
+      <path d="M20 250 L5 258 L10 262 L25 254 Z" fill="#333"/>
+      <!-- Helmet -->
+      <ellipse cx="97" cy="75" rx="28" ry="24" fill="#e8364e"/>
+      <path d="M70 75 Q70 55 97 50 Q124 55 124 75" fill="#e8364e"/>
+      <!-- Cage/visor -->
+      <path d="M77 80 Q97 92 117 80" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" fill="none"/>
+      <path d="M80 75 Q97 85 114 75" stroke="rgba(255,255,255,0.3)" stroke-width="1" fill="none"/>
+      <!-- Face (brown skin) -->
+      <ellipse cx="97" cy="82" rx="18" ry="14" fill="#8B5E3C"/>
+      <!-- Eyes -->
+      <ellipse cx="91" cy="80" rx="2.5" ry="2.5" fill="#1a1a2e"/>
+      <ellipse cx="103" cy="80" rx="2.5" ry="2.5" fill="#1a1a2e"/>
+      <!-- Smile -->
+      <path d="M91 87 Q97 92 103 87" stroke="#1a1a2e" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <!-- Ponytail coming out of helmet -->
+      <path d="M97 52 Q100 35 115 30 Q125 35 120 50" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="2"/>
+      <path d="M115 30 Q130 28 140 40 Q135 55 125 50" fill="#1a1a1a"/>
+      <!-- Jersey collar -->
+      <path d="M80 108 Q97 115 114 108" stroke="white" stroke-width="2" fill="none"/>
+      <!-- Name bar on back hint (shoulder stripe) -->
+      <line x1="68" y1="120" x2="127" y2="120" stroke="white" stroke-width="2" opacity="0.4"/>
+    </svg>
   </div>
   <div id="today-hero"></div>
   <div id="today-actions"></div>
@@ -719,8 +863,11 @@ body {
       <button class="timer-close" id="timer-close" aria-label="Close">&times;</button>
     </div>
     <div class="timer-step-text" id="timer-step-text"></div>
+    <div class="timer-reps-info" id="timer-reps-info"></div>
+    <button class="timer-done-reps" id="timer-done-reps">Done!</button>
     <div class="timer-display" id="timer-display">0:00</div>
     <div class="timer-progress"><div class="timer-progress-bar" id="timer-progress-bar"></div></div>
+    <div class="timer-video-link" id="timer-video-link"></div>
     <div class="timer-next-up" id="timer-next-up"></div>
     <div class="timer-buttons">
       <button class="timer-btn" id="timer-skip">Skip</button>
@@ -1359,91 +1506,91 @@ const STICK = [
 const WEEKLY_PLAN = [
   { num: 1, phase: "BASE", date: "Apr 27", focus: "Learn it the RIGHT way",
     days: [
-      { d: "Mon Apr 28", t: "Taekwondo + 15 min driveway" },
-      { d: "Tue Apr 29", t: "Religious 4:00 → Ice 5:15-6:05 → 20 min driveway" },
-      { d: "Wed Apr 30", t: "20 min light workout (Wed Light) → 20 min driveway" },
-      { d: "Thu May 01", t: "Religious → Taekwondo → 15 min driveway" },
-      { d: "Fri May 02", t: "Ice power skating evening" },
-      { d: "Sat May 03", t: "Workout morning (Sat Big) + 25 min driveway" },
-      { d: "Sun May 04", t: "DAY OFF · Optional 10 min driveway" } ] },
-  { num: 2, phase: "BASE", date: "May 05",
+      { d: "Mon Apr 27", t: "Taekwondo + 15 min driveway" },
+      { d: "Tue Apr 28", t: "Religious 4:00 → Ice 5:15-6:05 → 20 min driveway" },
+      { d: "Wed Apr 29", t: "20 min light workout (Wed Light) → 20 min driveway" },
+      { d: "Thu Apr 30", t: "Religious → Taekwondo → 15 min driveway" },
+      { d: "Fri May 01", t: "Ice power skating evening" },
+      { d: "Sat May 02", t: "Workout morning (Sat Big) + 25 min driveway" },
+      { d: "Sun May 03", t: "DAY OFF · Optional 10 min driveway" } ] },
+  { num: 2, phase: "BASE", date: "May 04",
     days: [
-      { d: "Mon May 05", t: "Taekwondo + 15 min driveway" },
-      { d: "Tue May 06", t: "Ice 5:15-6:05 → 20 min driveway" },
-      { d: "Wed May 07", t: "20 min light workout (Wed Light) → 20 min driveway" },
-      { d: "Thu May 08", t: "Taekwondo → 15 min driveway" },
-      { d: "Fri May 09", t: "Ice power skating" },
-      { d: "Sat May 10", t: "Sat Big Workout + 25 min driveway" },
-      { d: "Sun May 11", t: "DAY OFF" } ] },
-  { num: 3, phase: "BASE", date: "May 12",
+      { d: "Mon May 04", t: "Taekwondo + 15 min driveway" },
+      { d: "Tue May 05", t: "Ice 5:15-6:05 → 20 min driveway" },
+      { d: "Wed May 06", t: "20 min light workout (Wed Light) → 20 min driveway" },
+      { d: "Thu May 07", t: "Taekwondo → 15 min driveway" },
+      { d: "Fri May 08", t: "Ice power skating" },
+      { d: "Sat May 09", t: "Sat Big Workout + 25 min driveway" },
+      { d: "Sun May 10", t: "DAY OFF" } ] },
+  { num: 3, phase: "BASE", date: "May 11",
     days: [
-      { d: "Mon May 12", t: "Taekwondo + 15 min driveway" },
-      { d: "Tue May 13", t: "Ice 5:15-6:05 → 20 min driveway" },
-      { d: "Wed May 14", t: "Wed Light Workout → 20 min driveway" },
-      { d: "Thu May 15", t: "Taekwondo → 15 min driveway" },
-      { d: "Fri May 16", t: "Ice power skating" },
-      { d: "Sat May 17", t: "Sat Big Workout + 25 min driveway" },
-      { d: "Sun May 18", t: "DAY OFF" } ] },
-  { num: 4, phase: "BUILD", date: "May 19", focus: "Speed it up — carry the puck fast",
+      { d: "Mon May 11", t: "Taekwondo + 15 min driveway" },
+      { d: "Tue May 12", t: "Ice 5:15-6:05 → 20 min driveway" },
+      { d: "Wed May 13", t: "Wed Light Workout → 20 min driveway" },
+      { d: "Thu May 14", t: "Taekwondo → 15 min driveway" },
+      { d: "Fri May 15", t: "Ice power skating" },
+      { d: "Sat May 16", t: "Sat Big Workout + 25 min driveway" },
+      { d: "Sun May 17", t: "DAY OFF" } ] },
+  { num: 4, phase: "BUILD", date: "May 18", focus: "Speed it up — carry the puck fast",
     days: [
-      { d: "Mon May 19", t: "Taekwondo + 15 min driveway (quick hands)" },
-      { d: "Tue May 20", t: "Ice → 20-25 min driveway (mix shots)" },
-      { d: "Wed May 21", t: "BUILD Wed Light → 20 min driveway" },
-      { d: "Thu May 22", t: "Taekwondo → 15 min driveway" },
-      { d: "Fri May 23", t: "Ice power skating" },
-      { d: "Sat May 24", t: "BUILD Sat Big + 25 min driveway" },
-      { d: "Sun May 25", t: "DAY OFF" } ] },
-  { num: 5, phase: "BUILD", date: "May 26",
+      { d: "Mon May 18", t: "Taekwondo + 15 min driveway (quick hands)" },
+      { d: "Tue May 19", t: "Ice → 20-25 min driveway (mix shots)" },
+      { d: "Wed May 20", t: "BUILD Wed Light → 20 min driveway" },
+      { d: "Thu May 21", t: "Taekwondo → 15 min driveway" },
+      { d: "Fri May 22", t: "Ice power skating" },
+      { d: "Sat May 23", t: "BUILD Sat Big + 25 min driveway" },
+      { d: "Sun May 24", t: "DAY OFF" } ] },
+  { num: 5, phase: "BUILD", date: "May 25",
     days: [
-      { d: "Mon May 26", t: "Taekwondo + 15 min driveway" },
-      { d: "Tue May 27", t: "Ice → 20-25 min driveway" },
-      { d: "Wed May 28", t: "BUILD Wed Light → 20 min driveway" },
-      { d: "Thu May 29", t: "Taekwondo → 15 min driveway" },
-      { d: "Fri May 30", t: "Ice power skating" },
-      { d: "Sat May 31", t: "BUILD Sat Big + 25 min driveway" },
-      { d: "Sun Jun 01", t: "DAY OFF" } ] },
-  { num: 6, phase: "BUILD", date: "Jun 02",
+      { d: "Mon May 25", t: "Taekwondo + 15 min driveway" },
+      { d: "Tue May 26", t: "Ice → 20-25 min driveway" },
+      { d: "Wed May 27", t: "BUILD Wed Light → 20 min driveway" },
+      { d: "Thu May 28", t: "Taekwondo → 15 min driveway" },
+      { d: "Fri May 29", t: "Ice power skating" },
+      { d: "Sat May 30", t: "BUILD Sat Big + 25 min driveway" },
+      { d: "Sun May 31", t: "DAY OFF" } ] },
+  { num: 6, phase: "BUILD", date: "Jun 01",
     days: [
-      { d: "Mon Jun 02", t: "Taekwondo + 15 min driveway" },
-      { d: "Tue Jun 03", t: "Ice → 20-25 min driveway" },
-      { d: "Wed Jun 04", t: "BUILD Wed Light → 20 min driveway" },
-      { d: "Thu Jun 05", t: "Taekwondo → 15 min driveway" },
-      { d: "Fri Jun 06", t: "Ice power skating" },
-      { d: "Sat Jun 07", t: "BUILD Sat Big + 25 min driveway" },
-      { d: "Sun Jun 08", t: "DAY OFF" } ] },
-  { num: 7, phase: "PEAK", date: "Jun 09", focus: "Game speed — beat players 1-on-1",
+      { d: "Mon Jun 01", t: "Taekwondo + 15 min driveway" },
+      { d: "Tue Jun 02", t: "Ice → 20-25 min driveway" },
+      { d: "Wed Jun 03", t: "BUILD Wed Light → 20 min driveway" },
+      { d: "Thu Jun 04", t: "Taekwondo → 15 min driveway" },
+      { d: "Fri Jun 05", t: "Ice power skating" },
+      { d: "Sat Jun 06", t: "BUILD Sat Big + 25 min driveway" },
+      { d: "Sun Jun 07", t: "DAY OFF" } ] },
+  { num: 7, phase: "PEAK", date: "Jun 08", focus: "Game speed — beat players 1-on-1",
     days: [
-      { d: "Mon Jun 09", t: "Taekwondo + 15 min driveway (corners only)" },
-      { d: "Tue Jun 10", t: "Ice → 25 min driveway" },
-      { d: "Wed Jun 11", t: "PEAK Wed Light → 20 min driveway" },
-      { d: "Thu Jun 12", t: "Taekwondo → 15 min driveway" },
-      { d: "Fri Jun 13", t: "Ice power skating" },
-      { d: "Sat Jun 14", t: "PEAK Sat Big + 25 min driveway (100 shots!)" },
-      { d: "Sun Jun 15", t: "DAY OFF" } ] },
-  { num: 8, phase: "PEAK", date: "Jun 16",
+      { d: "Mon Jun 08", t: "Taekwondo + 15 min driveway (corners only)" },
+      { d: "Tue Jun 09", t: "Ice → 25 min driveway" },
+      { d: "Wed Jun 10", t: "PEAK Wed Light → 20 min driveway" },
+      { d: "Thu Jun 11", t: "Taekwondo → 15 min driveway" },
+      { d: "Fri Jun 12", t: "Ice power skating" },
+      { d: "Sat Jun 13", t: "PEAK Sat Big + 25 min driveway (100 shots!)" },
+      { d: "Sun Jun 14", t: "DAY OFF" } ] },
+  { num: 8, phase: "PEAK", date: "Jun 15",
     days: [
-      { d: "Mon Jun 16", t: "Taekwondo + 15 min driveway" },
-      { d: "Tue Jun 17", t: "Ice → 25 min driveway" },
-      { d: "Wed Jun 18", t: "PEAK Wed Light → 20 min driveway" },
-      { d: "Thu Jun 19", t: "Taekwondo → 15 min driveway" },
-      { d: "Fri Jun 20", t: "Ice power skating" },
-      { d: "Sat Jun 21", t: "PEAK Sat Big + 25 min driveway" },
-      { d: "Sun Jun 22", t: "DAY OFF" } ] },
-  { num: 9, phase: "PEAK", date: "Jun 23",
+      { d: "Mon Jun 15", t: "Taekwondo + 15 min driveway" },
+      { d: "Tue Jun 16", t: "Ice → 25 min driveway" },
+      { d: "Wed Jun 17", t: "PEAK Wed Light → 20 min driveway" },
+      { d: "Thu Jun 18", t: "Taekwondo → 15 min driveway" },
+      { d: "Fri Jun 19", t: "Ice power skating" },
+      { d: "Sat Jun 20", t: "PEAK Sat Big + 25 min driveway" },
+      { d: "Sun Jun 21", t: "DAY OFF" } ] },
+  { num: 9, phase: "PEAK", date: "Jun 22",
     days: [
-      { d: "Mon Jun 23", t: "Taekwondo + 15 min driveway" },
-      { d: "Tue Jun 24", t: "Ice → 25 min driveway" },
-      { d: "Wed Jun 25", t: "PEAK Wed Light → 20 min driveway" },
-      { d: "Thu Jun 26", t: "Taekwondo → 15 min driveway" },
-      { d: "Fri Jun 27", t: "Ice power skating" },
-      { d: "Sat Jun 28", t: "PEAK Sat Big + 25 min driveway" },
-      { d: "Sun Jun 29", t: "DAY OFF" } ] },
-  { num: 10, phase: "TAPER", date: "Jun 30", focus: "Pre-Japan wind down",
+      { d: "Mon Jun 22", t: "Taekwondo + 15 min driveway" },
+      { d: "Tue Jun 23", t: "Ice → 25 min driveway" },
+      { d: "Wed Jun 24", t: "PEAK Wed Light → 20 min driveway" },
+      { d: "Thu Jun 25", t: "Taekwondo → 15 min driveway" },
+      { d: "Fri Jun 26", t: "Ice power skating" },
+      { d: "Sat Jun 27", t: "PEAK Sat Big + 25 min driveway" },
+      { d: "Sun Jun 28", t: "DAY OFF" } ] },
+  { num: 10, phase: "TAPER", date: "Jun 29", focus: "Pre-Japan wind down",
     days: [
-      { d: "Mon Jun 30", t: "Easy TKD + 15 min chill driveway" },
-      { d: "Tue Jul 01", t: "LAST ice session before Japan! + 15 min driveway" },
-      { d: "Wed Jul 02", t: "Travel prep · Optional 10 min driveway" },
-      { d: "Jul 3-18", t: "JAPAN! Zero hockey. Rest IS training." } ] }
+      { d: "Mon Jun 29", t: "Easy TKD + 15 min chill driveway" },
+      { d: "Tue Jun 30", t: "LAST ice session before Japan! + 15 min driveway" },
+      { d: "Wed Jul 01", t: "Travel prep · Optional 10 min driveway" },
+      { d: "Jul 2-18", t: "JAPAN! Zero hockey. Rest IS training." } ] }
 ];
 
 // ═══════════════════════════════════════
@@ -1885,10 +2032,45 @@ function startWorkout(routineId) {
   });
 }
 
+function findExerciseVideo(stepText) {
+  const t = stepText.toLowerCase();
+  const allExercises = [...DRYLAND, ...STICK];
+  // Map common step text keywords to exercise names
+  const keywords = [
+    ["squat", "Squat"], ["lunge", "Lunge"], ["push-up", "Push-up"], ["pushup", "Push-up"],
+    ["glute bridge", "Glute Bridge"], ["bird dog", "Bird Dog"], ["dead bug", "Dead Bug"],
+    ["plank", "Plank"], ["side plank", "Side Plank"], ["hollow", "Hollow"],
+    ["pallof", "Pallof"], ["rdl", "Romanian Deadlift"], ["romanian deadlift", "Romanian Deadlift"],
+    ["single-leg rdl", "Single-Leg Romanian Deadlift"], ["single-leg squat", "Single-Leg Squat"],
+    ["bulgarian", "Bulgarian Split Squat"], ["balance", "Single-Leg Balance"],
+    ["sprint", "Sprint Intervals"], ["broad jump", "Broad Jumps"], ["box jump", "Box Jumps"],
+    ["side hop", "Skater Hops"], ["side bound", "Skater Hops"], ["lateral bound", "Skater Hops"],
+    ["skater hop", "Skater Hops"], ["ladder", "Agility Ladder"],
+    ["med ball", "Med Ball Rotational"], ["medicine ball", "Med Ball Rotational"],
+    ["row", "Bent-Over Row"], ["bent-over row", "Bent-Over Row"],
+    ["wrist shot", "Wrist Shot"], ["snap shot", "Snap Shot"], ["backhand", "Backhand"],
+    ["stickhandl", "Wide Stationary"], ["quick hands", "Narrow Quick"],
+    ["toe drag", "Toe Drag"], ["figure 8", "Figure 8"], ["one-handed", "One-Handed"],
+    ["around the world", "Around the World"], ["through the legs", "Through the Legs"],
+  ];
+  for (const [kw, name] of keywords) {
+    if (t.includes(kw)) {
+      const ex = allExercises.find(e => e.name.toLowerCase().includes(name.toLowerCase()));
+      if (ex && (ex.vid || ex.yt)) return ex;
+    }
+  }
+  return null;
+}
+
+function isRepStep(text) {
+  return /\d+\s*rep|\beach\s+(side|leg|direction)\b|\beach side\b/i.test(text);
+}
+
 function renderTimer() {
   if (!state) return;
   const { routine, stepIdx, secLeft } = state;
   const step = routine.steps[stepIdx];
+  const reps = isRepStep(step.text);
   tRoutineName.textContent = routine.name + " · " + routine.duration;
   tStepNum.textContent = `STEP ${stepIdx + 1} OF ${routine.steps.length}`;
   tStepText.textContent = step.text;
@@ -1897,6 +2079,27 @@ function renderTimer() {
   const next = routine.steps[stepIdx + 1];
   tNextUp.innerHTML = next ? `Next: <strong>${next.text}</strong>` : `<strong>Last step!</strong>`;
   tPause.textContent = state.paused ? "Resume" : "Pause";
+
+  // Video link for current exercise
+  const videoEl = document.getElementById("timer-video-link");
+  const match = findExerciseVideo(step.text);
+  if (match) {
+    const href = match.vid ? ytWatch(match.vid) : ytLink(match.yt);
+    const label = match.vid ? "Watch Demo" : "Find Demo";
+    videoEl.innerHTML = `<a href="${href}" target="_blank" rel="noopener">&#9654;&#65039; ${label} &mdash; ${match.name}</a>`;
+  } else {
+    videoEl.innerHTML = "";
+  }
+
+  // Reps mode: show Done button, hide timer countdown focus
+  const repsInfo = document.getElementById("timer-reps-info");
+  if (reps) {
+    tActive.classList.add("timer-reps-mode");
+    repsInfo.textContent = "Complete your reps, then tap Done";
+  } else {
+    tActive.classList.remove("timer-reps-mode");
+    repsInfo.textContent = "";
+  }
 }
 
 let tickHandle = null;
@@ -1978,6 +2181,17 @@ tSkip.addEventListener("click", () => {
   renderTimer();
 });
 tAdd.addEventListener("click", () => { if (state) { state.secLeft += 15; renderTimer(); } });
+document.getElementById("timer-done-reps").addEventListener("click", () => {
+  if (!state) return;
+  showStepMsg("Stop Maysa, Good Work!");
+  speak("Stop Maysa, Good Work!");
+  beep();
+  state.completedSec += state.routine.steps[state.stepIdx].sec - state.secLeft;
+  state.stepIdx++;
+  if (state.stepIdx >= state.routine.steps.length) { finishWorkout(); return; }
+  state.secLeft = state.routine.steps[state.stepIdx].sec;
+  renderTimer();
+});
 tClose.addEventListener("click", () => { if (confirm("End workout early?")) endWorkout(); });
 tFinish.addEventListener("click", endWorkout);
 
