@@ -1,11 +1,4 @@
 <!DOCTYPE html>
-<script type="application/json" id="cowork-artifact-meta">
-{
-  "name": "Hockey Training Catalog",
-  "schemaVersion": 1,
-  "description": "Interactive dryland and stick-handling drill catalog for a 13-year-old competitive ice hockey forward. Filterable by category, difficulty, and equipment. Each drill links to a YouTube demo search."
-}
-</script>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -14,311 +7,580 @@
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="Killer Maysa" />
-<meta name="theme-color" content="#0a2540" />
-<link rel="apple-touch-icon" href="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20180%20180%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%230a2540%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23c8102e%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22180%22%20height%3D%22180%22%20rx%3D%2240%22%20fill%3D%22url(%23g)%22%2F%3E%3Ctext%20x%3D%2290%22%20y%3D%22100%22%20text-anchor%3D%22middle%22%20font-family%3D%22-apple-system%2Csans-serif%22%20font-size%3D%2236%22%20font-weight%3D%22900%22%20fill%3D%22white%22%3EKM%3C%2Ftext%3E%3Ctext%20x%3D%2290%22%20y%3D%22138%22%20text-anchor%3D%22middle%22%20font-family%3D%22-apple-system%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%20fill%3D%22white%22%3EHOCKEY%3C%2Ftext%3E%3C%2Fsvg%3E" />
-<title>The Killer Maysa Hockey Training System</title>
+<meta name="theme-color" content="#0f0f14" />
+<link rel="apple-touch-icon" href="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20180%20180%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%230f0f14%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23e8364e%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22180%22%20height%3D%22180%22%20rx%3D%2240%22%20fill%3D%22url(%23g)%22%2F%3E%3Ctext%20x%3D%2290%22%20y%3D%22100%22%20text-anchor%3D%22middle%22%20font-family%3D%22-apple-system%2Csans-serif%22%20font-size%3D%2236%22%20font-weight%3D%22900%22%20fill%3D%22white%22%3EKM%3C%2Ftext%3E%3Ctext%20x%3D%2290%22%20y%3D%22138%22%20text-anchor%3D%22middle%22%20font-family%3D%22-apple-system%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%20fill%3D%22white%22%3EHOCKEY%3C%2Ftext%3E%3C%2Fsvg%3E" />
+<title>Killer Maysa</title>
 <style>
-:root { color-scheme: light; }
-* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f6f8fb; color: #1a2332; line-height: 1.5; padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); -webkit-text-size-adjust: 100%; }
-.wrap { max-width: 1100px; margin: 0 auto; padding: 16px; }
-header { background: linear-gradient(135deg, #0a2540 0%, #1e3a5f 50%, #c8102e 100%); color: white; padding: 28px 22px; border-radius: 18px; margin-bottom: 16px; box-shadow: 0 4px 20px rgba(10,37,64,0.2); position: relative; overflow: hidden; }
-header::before { content: ""; position: absolute; top: -40px; right: -40px; width: 180px; height: 180px; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); }
-.km-tag { display: inline-block; background: rgba(255,255,255,0.18); color: white; font-size: 11px; font-weight: 800; letter-spacing: 2px; padding: 4px 12px; border-radius: 12px; margin-bottom: 10px; }
-header h1 { margin: 0 0 8px 0; font-size: 30px; letter-spacing: -0.6px; line-height: 1.15; font-weight: 800; }
-header h1 em { font-style: normal; color: #ffd1d8; }
-header p { margin: 0; opacity: 0.92; font-size: 15px; max-width: 600px; }
-.badge-row { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
-.hbadge { background: rgba(255,255,255,0.22); padding: 5px 11px; border-radius: 20px; font-size: 12px; font-weight: 600; }
-.tabs { display: flex; gap: 4px; margin-bottom: 14px; background: white; padding: 6px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 50; overflow-x: auto; }
-.tab { flex: 1; padding: 12px 10px; border: none; background: transparent; font-size: 14px; font-weight: 700; color: #5a6b80; cursor: pointer; border-radius: 8px; min-height: 44px; white-space: nowrap; }
-.tab:hover { background: #f0f4f9; }
-.tab.active { background: #0a2540; color: white; }
-.controls { background: white; padding: 12px; border-radius: 12px; margin-bottom: 14px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-.search { flex: 1; min-width: 180px; padding: 12px 14px; border: 1.5px solid #e1e7ef; border-radius: 8px; font-size: 15px; background: #f9fafc; min-height: 44px; }
-.search:focus { outline: none; border-color: #0a2540; background: white; }
-.filter-group { display: flex; gap: 6px; flex-wrap: wrap; }
-.chip { padding: 9px 14px; background: #f0f4f9; border: 1.5px solid transparent; border-radius: 20px; font-size: 13px; cursor: pointer; font-weight: 600; color: #4a5b70; min-height: 36px; }
-.chip:hover { background: #e1e9f4; }
-.chip.active { background: #0a2540; color: white; }
-.chip.diff-beg.active { background: #16a34a; }
-.chip.diff-int.active { background: #ea580c; }
-.chip.diff-adv.active { background: #c8102e; }
-.intro-card { background: white; padding: 16px 18px; border-radius: 12px; margin-bottom: 14px; border-left: 4px solid #c8102e; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-.intro-card h3 { margin: 0 0 6px 0; font-size: 16px; color: #0a2540; }
-.intro-card p { margin: 0; font-size: 14px; color: #4a5b70; }
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
-.card { background: white; border-radius: 12px; padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); display: flex; flex-direction: column; }
-.card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; gap: 8px; }
-.card h3 { margin: 0; font-size: 17px; color: #0a2540; flex: 1; }
-.diff { font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 10px; text-transform: uppercase; letter-spacing: 0.3px; white-space: nowrap; }
-.diff-beg { background: #dcfce7; color: #166534; }
-.diff-int { background: #ffedd5; color: #9a3412; }
-.diff-adv { background: #fee2e2; color: #991b1b; }
-.meta { display: flex; gap: 12px; flex-wrap: wrap; font-size: 12px; color: #6b7d92; margin-bottom: 10px; }
-.cat-pill { display: inline-block; font-size: 11px; background: #eef2f9; color: #4a5b70; padding: 3px 8px; border-radius: 6px; font-weight: 600; margin-bottom: 10px; }
-.card .desc { font-size: 14px; color: #354456; margin: 0 0 12px 0; }
-details { margin-top: 6px; }
-details summary { cursor: pointer; font-size: 14px; font-weight: 600; color: #0a2540; padding: 10px 0; list-style: none; min-height: 44px; display: flex; align-items: center; }
-details summary::-webkit-details-marker { display: none; }
-details summary::before { content: "▸ "; color: #c8102e; }
-details[open] summary::before { content: "▾ "; }
-details .body { padding: 6px 0 4px 16px; font-size: 14px; color: #354456; }
-details ol, details ul { padding-left: 20px; margin: 6px 0; }
-details li { margin-bottom: 5px; }
-.tip { background: #fffbeb; border-left: 3px solid #f59e0b; padding: 8px 10px; margin-top: 8px; border-radius: 4px; font-size: 13px; color: #78350f; }
-.tip strong { color: #92400e; }
-.video-link { display: inline-flex; align-items: center; gap: 6px; margin-top: auto; padding: 11px 14px; background: #c8102e; color: white; text-decoration: none; border-radius: 8px; font-size: 14px; font-weight: 600; align-self: flex-start; min-height: 44px; }
-.video-link:active { background: #a30d24; }
-.video-link.has-video { background: linear-gradient(135deg, #c8102e 0%, #ff1744 100%); }
-.video-link.has-video::before { content: "▶ "; }
-.video-link.search-only::before { content: "🔍 "; }
-.workout-section { background: linear-gradient(135deg, #0a2540 0%, #1e3a5f 100%); color: white; border-radius: 12px; padding: 18px; margin-bottom: 14px; }
-.workout-section h2 { margin: 0 0 6px 0; font-size: 19px; }
-.workout-section p.sub { margin: 0 0 12px 0; opacity: 0.85; font-size: 14px; }
-.gear-line { font-size: 12px; background: rgba(255,255,255,0.12); padding: 8px 12px; border-radius: 8px; margin-bottom: 14px; display: inline-block; }
-.workout-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
-.workout-card { background: rgba(255,255,255,0.1); padding: 14px; border-radius: 10px; display: flex; flex-direction: column; }
-.workout-card h4 { margin: 0 0 6px 0; font-size: 15px; color: #ffd1d8; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
-.time-pill { background: #c8102e; color: white; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 10px; letter-spacing: 0.3px; }
-.phase-pill { background: rgba(255,209,216,0.25); color: #ffd1d8; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; letter-spacing: 1px; }
-.workout-card .blurb { font-size: 12px; opacity: 0.8; margin: 0 0 10px 0; font-style: italic; }
-.workout-card ol { margin: 0; padding-left: 18px; font-size: 13px; flex: 1; }
-.workout-card ol li { margin-bottom: 5px; }
-.workout-card ol li strong { color: #ffd1d8; }
-.start-btn { margin-top: 12px; padding: 13px 16px; background: #c8102e; color: white; border: none; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; min-height: 46px; box-shadow: 0 2px 6px rgba(200,16,46,0.4); }
-.start-btn:active { background: #a30d24; transform: translateY(1px); }
-.empty { background: white; padding: 40px; text-align: center; border-radius: 12px; color: #6b7d92; }
-.count { font-size: 13px; color: #6b7d92; margin-bottom: 10px; }
-.channels-card { background: white; border-radius: 12px; padding: 16px; margin-bottom: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-.channels-card h3 { margin: 0 0 4px 0; font-size: 16px; color: #0a2540; }
-.channels-card p { margin: 0 0 12px 0; font-size: 13px; color: #4a5b70; }
-.channels-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; }
-.channel-pill { display: flex; align-items: center; gap: 8px; padding: 10px 12px; background: #f0f4f9; border-radius: 8px; text-decoration: none; color: #0a2540; font-size: 13px; font-weight: 600; }
-.channel-pill:active { background: #e1e9f4; }
-.channel-pill .ch-icon { width: 28px; height: 28px; border-radius: 14px; background: #c8102e; color: white; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
-.plan-hero { background: white; border-radius: 12px; padding: 18px; margin-bottom: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-.plan-hero h2 { margin: 0 0 8px 0; color: #0a2540; }
-.plan-hero p { margin: 0 0 8px 0; color: #4a5b70; font-size: 14px; }
-.plan-phases { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-top: 14px; }
-.phase-box { padding: 14px; border-radius: 10px; color: white; }
-.phase-box.base { background: linear-gradient(135deg, #16a34a, #0e7e3a); }
-.phase-box.build { background: linear-gradient(135deg, #ea580c, #c8420a); }
-.phase-box.peak { background: linear-gradient(135deg, #c8102e, #8a0a20); }
-.phase-box.taper { background: linear-gradient(135deg, #6b7d92, #4a5b70); }
-.phase-box .ph-label { font-size: 11px; font-weight: 800; letter-spacing: 2px; opacity: 0.85; }
-.phase-box .ph-name { font-size: 17px; font-weight: 800; margin: 4px 0; }
-.phase-box .ph-detail { font-size: 12px; opacity: 0.9; }
-.week-card { background: white; border-radius: 10px; padding: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-.week-card-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; gap: 8px; }
-.week-card-head h3 { margin: 0; font-size: 16px; color: #0a2540; }
-.week-card-head .week-phase { font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 10px; letter-spacing: 1px; flex-shrink: 0; }
-.week-phase.base { background: #dcfce7; color: #166534; }
-.week-phase.build { background: #ffedd5; color: #9a3412; }
-.week-phase.peak { background: #fee2e2; color: #991b1b; }
-.week-phase.taper { background: #e1e7ef; color: #4a5b70; }
-.day-row { display: flex; gap: 12px; padding: 8px 0; border-top: 1px solid #f0f4f9; font-size: 13px; }
-.day-row:first-child { border-top: 0; padding-top: 0; }
-.day-row .day-name { font-weight: 700; color: #0a2540; flex-shrink: 0; width: 90px; font-size: 12px; text-transform: uppercase; }
-.day-row .day-plan { color: #354456; flex: 1; }
-.day-row .day-plan strong { color: #c8102e; }
-.rules-card { background: white; border-radius: 12px; padding: 18px; margin-bottom: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-.rules-card h3 { margin: 0 0 10px 0; font-size: 16px; color: #0a2540; }
-.rules-card ul { margin: 0; padding-left: 22px; font-size: 13.5px; color: #354456; }
-.rules-card li { margin-bottom: 6px; line-height: 1.45; }
-.rules-card li::marker { color: #c8102e; font-weight: 800; }
-.coach-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 8px; margin-top: 8px; }
-.coach-pill { padding: 10px 12px; border-radius: 8px; font-size: 13px; }
-.coach-pill.top { background: #dcfce7; color: #166534; font-weight: 700; }
-.coach-pill.good { background: #f0f4f9; color: #354456; }
-.coach-pill.avoid { background: #fee2e2; color: #991b1b; font-weight: 700; }
-@media (max-width: 600px) { .wrap { padding: 12px; } header { padding: 22px 16px; } header h1 { font-size: 24px; } .grid { grid-template-columns: 1fr; } .workout-grid { grid-template-columns: 1fr; } .tab { padding: 12px 8px; font-size: 13px; } }
-.timer-modal { position: fixed; inset: 0; background: linear-gradient(160deg, #0a2540 0%, #1a1a2e 60%, #c8102e 130%); color: white; z-index: 1000; display: none; flex-direction: column; padding: 24px; -webkit-user-select: none; user-select: none; overflow-y: auto; }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+:root {
+  --bg: #f5f5f7;
+  --surface: #ffffff;
+  --text: #1d1d1f;
+  --text2: #6e6e73;
+  --text3: #aeaeb2;
+  --accent: #e8364e;
+  --accent2: #ff6b81;
+  --dark: #0f0f14;
+  --green: #30d158;
+  --orange: #ff9f0a;
+  --blue: #0a84ff;
+  --radius: 20px;
+  --radius-sm: 14px;
+  --nav-height: 82px;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  color-scheme: light;
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  padding-bottom: calc(var(--nav-height) + var(--safe-bottom));
+  overflow-x: hidden;
+  min-height: 100dvh;
+}
+
+/* ─── SCREENS ─── */
+.screen { display: none; padding: 20px 20px 32px; max-width: 560px; margin: 0 auto; }
+.screen.active { display: block; }
+
+/* ─── TODAY HERO ─── */
+.today-greeting { font-size: 15px; font-weight: 600; color: var(--text2); letter-spacing: -0.2px; margin-bottom: 4px; }
+.today-date { font-size: 32px; font-weight: 800; letter-spacing: -1px; margin-bottom: 24px; color: var(--text); }
+.today-card {
+  background: linear-gradient(145deg, #1a1a24 0%, #2a1a2e 50%, var(--accent) 150%);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.today-card::after {
+  content: "";
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(232,54,78,0.3) 0%, transparent 70%);
+  pointer-events: none;
+}
+.today-phase-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  margin-bottom: 16px;
+}
+.today-plan-text {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.4px;
+  margin-bottom: 8px;
+}
+.today-plan-sub { font-size: 14px; opacity: 0.7; margin-bottom: 0; }
+
+.today-actions { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+.action-btn {
+  display: flex; align-items: center; gap: 14px;
+  background: var(--surface);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 18px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.03);
+  transition: transform 0.15s, box-shadow 0.15s;
+  text-decoration: none;
+}
+.action-btn:active { transform: scale(0.98); box-shadow: 0 1px 2px rgba(0,0,0,0.06); }
+.action-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.action-icon.red { background: #ffeaed; }
+.action-icon.blue { background: #e8f1ff; }
+.action-icon.green { background: #e6f9ed; }
+.action-icon.orange { background: #fff3e0; }
+.action-label { flex: 1; }
+.action-label small { display: block; font-size: 13px; font-weight: 500; color: var(--text2); margin-top: 2px; }
+.action-arrow { color: var(--text3); font-size: 18px; }
+
+/* ─── PHASE PROGRESS ─── */
+.phase-progress {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 22px 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.phase-progress h3 { font-size: 13px; font-weight: 700; letter-spacing: 1px; color: var(--text2); text-transform: uppercase; margin-bottom: 14px; }
+.phase-bar-track { height: 8px; background: var(--bg); border-radius: 4px; overflow: hidden; margin-bottom: 14px; }
+.phase-bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
+.phase-bar-fill.base { background: var(--green); }
+.phase-bar-fill.build { background: var(--orange); }
+.phase-bar-fill.peak { background: var(--accent); }
+.phase-bar-fill.taper { background: var(--text3); }
+.phase-labels { display: flex; justify-content: space-between; }
+.phase-label { font-size: 12px; font-weight: 600; color: var(--text3); text-align: center; }
+.phase-label.active { color: var(--text); }
+.phase-label .dot { display: block; width: 8px; height: 8px; border-radius: 4px; margin: 0 auto 4px; background: var(--text3); }
+.phase-label.active .dot { background: var(--accent); }
+
+/* ─── WEEK GLANCE ─── */
+.week-glance {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 22px 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  margin-bottom: 20px;
+}
+.week-glance h3 { font-size: 13px; font-weight: 700; letter-spacing: 1px; color: var(--text2); text-transform: uppercase; margin-bottom: 16px; }
+.week-day {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 12px 0;
+  border-top: 1px solid #f0f0f2;
+  font-size: 14px;
+}
+.week-day:first-of-type { border-top: none; padding-top: 0; }
+.week-day-name { font-weight: 700; color: var(--text2); width: 40px; flex-shrink: 0; font-size: 13px; text-transform: uppercase; }
+.week-day-plan { color: var(--text); flex: 1; }
+.week-day.is-today { background: #fef7f8; margin: 0 -20px; padding-left: 20px; padding-right: 20px; border-radius: 10px; }
+.week-day.is-today .week-day-name { color: var(--accent); }
+
+/* ─── SECTION TITLES ─── */
+.section-title {
+  font-size: 13px; font-weight: 700; letter-spacing: 1px;
+  color: var(--text2); text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+/* ─── WORKOUT CARDS ─── */
+.routine-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 22px 20px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+.routine-card:active { transform: scale(0.98); }
+.routine-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; gap: 10px; }
+.routine-card h3 { font-size: 17px; font-weight: 700; flex: 1; }
+.routine-dur { font-size: 12px; font-weight: 700; color: var(--accent); background: #ffeaed; padding: 4px 10px; border-radius: 20px; white-space: nowrap; }
+.routine-phase { font-size: 11px; font-weight: 800; letter-spacing: 1.5px; padding: 3px 10px; border-radius: 20px; display: inline-block; margin-bottom: 8px; }
+.routine-phase.base { background: #e6f9ed; color: #1a8a44; }
+.routine-phase.build { background: #fff3e0; color: #b86e00; }
+.routine-phase.peak { background: #ffeaed; color: #c82040; }
+.routine-blurb { font-size: 14px; color: var(--text2); margin-bottom: 14px; }
+.routine-start-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--dark); color: white;
+  border: none; border-radius: 12px;
+  padding: 14px 20px;
+  font-size: 15px; font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.12s;
+}
+.routine-start-btn:active { transform: scale(0.96); }
+
+/* ─── STEPS PREVIEW ─── */
+.steps-preview { margin: 14px 0; }
+.steps-preview ol { padding-left: 20px; font-size: 13px; color: var(--text2); }
+.steps-preview li { margin-bottom: 4px; }
+.steps-preview li strong { color: var(--text); }
+.steps-toggle { font-size: 13px; font-weight: 600; color: var(--accent); background: none; border: none; cursor: pointer; padding: 4px 0; }
+
+/* ─── DRILL / EXERCISE LIBRARY ─── */
+.lib-controls { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+.lib-search {
+  width: 100%; padding: 14px 16px;
+  background: var(--surface); border: 1.5px solid #e8e8ed;
+  border-radius: var(--radius-sm); font-size: 16px;
+  font-family: inherit;
+}
+.lib-search:focus { outline: none; border-color: var(--accent); }
+.chip-row { display: flex; gap: 6px; flex-wrap: wrap; }
+.chip {
+  padding: 8px 14px; background: var(--surface); border: 1.5px solid #e8e8ed;
+  border-radius: 20px; font-size: 13px; font-weight: 600;
+  color: var(--text2); cursor: pointer; font-family: inherit;
+  transition: all 0.15s;
+}
+.chip.active { background: var(--dark); color: white; border-color: var(--dark); }
+.chip.diff-beg.active { background: #30d158; border-color: #30d158; color: white; }
+.chip.diff-int.active { background: #ff9f0a; border-color: #ff9f0a; color: white; }
+.chip.diff-adv.active { background: var(--accent); border-color: var(--accent); color: white; }
+.lib-count { font-size: 13px; color: var(--text3); margin-bottom: 10px; }
+
+.drill-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.drill-card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 4px; }
+.drill-card h3 { font-size: 16px; font-weight: 700; flex: 1; }
+.diff-tag { font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 10px; text-transform: uppercase; letter-spacing: 0.3px; }
+.diff-beg { background: #e6f9ed; color: #166534; }
+.diff-int { background: #fff3e0; color: #9a3412; }
+.diff-adv { background: #ffeaed; color: #991b1b; }
+.drill-cat { font-size: 12px; font-weight: 600; color: var(--text3); margin-bottom: 8px; }
+.drill-meta { display: flex; gap: 14px; font-size: 13px; color: var(--text2); margin-bottom: 10px; }
+.drill-desc { font-size: 14px; color: var(--text2); margin-bottom: 12px; }
+.drill-details summary {
+  font-size: 14px; font-weight: 600; color: var(--text);
+  cursor: pointer; list-style: none; padding: 8px 0;
+  display: flex; align-items: center; gap: 6px;
+}
+.drill-details summary::-webkit-details-marker { display: none; }
+.drill-details summary::before { content: "+" ; color: var(--accent); font-weight: 800; }
+.drill-details[open] summary::before { content: "-"; }
+.drill-details .body { padding: 4px 0 8px 20px; font-size: 14px; color: var(--text2); }
+.drill-details ol { padding-left: 18px; margin: 6px 0; }
+.drill-details li { margin-bottom: 5px; }
+.drill-tip { background: #fffbeb; border-left: 3px solid #f59e0b; padding: 10px 12px; margin-top: 8px; border-radius: 6px; font-size: 13px; color: #78350f; }
+.drill-tip strong { color: #92400e; }
+.video-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 12px; padding: 12px 16px;
+  background: var(--accent); color: white;
+  text-decoration: none; border-radius: 12px;
+  font-size: 14px; font-weight: 600;
+}
+.video-link:active { opacity: 0.85; }
+.video-link.search-only { background: var(--dark); }
+
+/* ─── PLAN SCREEN ─── */
+.plan-phase-cards { display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 4px; }
+.plan-phase-card {
+  flex: 0 0 auto; min-width: 140px;
+  padding: 16px; border-radius: var(--radius-sm);
+  color: white; font-size: 12px;
+}
+.plan-phase-card.base { background: linear-gradient(135deg, #30d158, #1a8a44); }
+.plan-phase-card.build { background: linear-gradient(135deg, #ff9f0a, #cc7a00); }
+.plan-phase-card.peak { background: linear-gradient(135deg, var(--accent), #b82040); }
+.plan-phase-card.taper { background: linear-gradient(135deg, #8e8e93, #636366); }
+.plan-phase-card .ppc-label { font-weight: 800; letter-spacing: 1.5px; font-size: 10px; opacity: 0.8; }
+.plan-phase-card .ppc-name { font-size: 20px; font-weight: 800; margin: 4px 0; }
+.plan-phase-card .ppc-detail { opacity: 0.85; line-height: 1.3; }
+
+.rules-section {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 22px 20px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.rules-section h3 { font-size: 16px; font-weight: 700; margin-bottom: 12px; }
+.rules-section ul { padding-left: 20px; font-size: 14px; color: var(--text2); }
+.rules-section li { margin-bottom: 8px; line-height: 1.45; }
+.rules-section li strong { color: var(--text); }
+.rules-section li::marker { color: var(--accent); }
+
+.plan-week {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.plan-week-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; cursor: pointer; }
+.plan-week-head h3 { font-size: 15px; font-weight: 700; }
+.plan-week-phase { font-size: 11px; font-weight: 800; padding: 3px 10px; border-radius: 20px; letter-spacing: 1px; }
+.plan-week-phase.base { background: #e6f9ed; color: #1a8a44; }
+.plan-week-phase.build { background: #fff3e0; color: #b86e00; }
+.plan-week-phase.peak { background: #ffeaed; color: #c82040; }
+.plan-week-phase.taper { background: #f0f0f2; color: #636366; }
+.plan-week-days { display: none; }
+.plan-week.open .plan-week-days { display: block; }
+.plan-day { display: flex; gap: 12px; padding: 10px 0; border-top: 1px solid #f0f0f2; font-size: 13px; }
+.plan-day:first-child { border-top: none; }
+.plan-day-name { font-weight: 700; color: var(--text2); width: 80px; flex-shrink: 0; font-size: 12px; }
+.plan-day-text { flex: 1; color: var(--text); }
+
+.coach-grid { display: flex; flex-direction: column; gap: 6px; margin-top: 10px; }
+.coach-pill { padding: 12px 14px; border-radius: 10px; font-size: 13px; }
+.coach-pill.top { background: #e6f9ed; color: #166534; font-weight: 700; }
+.coach-pill.good { background: #f5f5f7; color: var(--text); }
+.coach-pill.avoid { background: #ffeaed; color: #991b1b; font-weight: 700; }
+
+/* ─── CHANNELS ─── */
+.channels-row { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 20px; }
+.channel-pill {
+  flex: 0 0 auto;
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 14px;
+  background: var(--surface);
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--text);
+  font-size: 13px; font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  white-space: nowrap;
+}
+.channel-pill:active { opacity: 0.8; }
+.ch-icon { width: 28px; height: 28px; border-radius: 8px; background: var(--accent); color: white; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; flex-shrink: 0; }
+
+/* ─── DRIVEWAY TARGETS ─── */
+.targets-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 22px 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.targets-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 14px; }
+.target-row { display: flex; gap: 12px; padding: 10px 0; border-top: 1px solid #f0f0f2; font-size: 14px; }
+.target-row:first-of-type { border-top: none; }
+.target-phase { font-weight: 800; width: 55px; flex-shrink: 0; font-size: 12px; letter-spacing: 0.5px; }
+.target-phase.base { color: #1a8a44; }
+.target-phase.build { color: #b86e00; }
+.target-phase.peak { color: #c82040; }
+.target-text { color: var(--text2); flex: 1; }
+
+/* ─── BOTTOM NAV ─── */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-top: 1px solid rgba(0,0,0,0.06);
+  display: flex;
+  padding-bottom: var(--safe-bottom);
+  z-index: 100;
+  height: calc(var(--nav-height) + var(--safe-bottom));
+}
+.nav-btn {
+  flex: 1;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 3px;
+  background: none; border: none;
+  color: var(--text3);
+  font-size: 10px; font-weight: 600;
+  cursor: pointer;
+  padding: 8px 0;
+  transition: color 0.15s;
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+.nav-btn .nav-icon { font-size: 24px; line-height: 1; }
+.nav-btn.active { color: var(--accent); }
+
+/* ─── TIMER MODAL ─── */
+.timer-modal {
+  position: fixed; inset: 0;
+  background: linear-gradient(160deg, #0f0f14 0%, #1a1a2e 60%, var(--accent) 150%);
+  color: white; z-index: 1000;
+  display: none; flex-direction: column;
+  padding: 24px; padding-top: calc(24px + env(safe-area-inset-top, 0px));
+  -webkit-user-select: none; user-select: none;
+  overflow-y: auto;
+}
 .timer-modal.show { display: flex; }
 .timer-top { display: flex; justify-content: space-between; align-items: center; }
 .timer-routine-name { font-size: 14px; opacity: 0.7; font-weight: 600; }
 .timer-close { background: rgba(255,255,255,0.15); border: none; color: white; width: 44px; height: 44px; border-radius: 22px; font-size: 22px; cursor: pointer; }
-.timer-step-num { font-size: 12px; letter-spacing: 2px; opacity: 0.6; margin-top: 32px; text-align: center; font-weight: 600; }
-.timer-step-text { font-size: 26px; font-weight: 700; line-height: 1.3; text-align: center; margin: 14px 0 28px 0; padding: 0 4px; }
-.timer-display { font-size: 96px; font-weight: 800; text-align: center; letter-spacing: -3px; font-variant-numeric: tabular-nums; line-height: 1; margin: 12px 0 24px 0; text-shadow: 0 4px 16px rgba(0,0,0,0.3); }
-.timer-progress { height: 8px; background: rgba(255,255,255,0.15); border-radius: 4px; overflow: hidden; margin-bottom: 32px; }
-.timer-progress-bar { height: 100%; background: white; border-radius: 4px; transition: width 1s linear; }
+.timer-step-num { font-size: 12px; letter-spacing: 2px; opacity: 0.5; margin-top: 40px; text-align: center; font-weight: 700; }
+.timer-step-text { font-size: 24px; font-weight: 700; line-height: 1.3; text-align: center; margin: 16px 0 32px 0; padding: 0 10px; }
+.timer-display {
+  font-size: 88px; font-weight: 800; text-align: center;
+  letter-spacing: -3px; font-variant-numeric: tabular-nums;
+  line-height: 1; margin: 16px 0 28px 0;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+.timer-progress { height: 6px; background: rgba(255,255,255,0.12); border-radius: 3px; overflow: hidden; margin-bottom: 32px; }
+.timer-progress-bar { height: 100%; background: white; border-radius: 3px; transition: width 1s linear; }
 .timer-buttons { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: auto; padding-top: 20px; }
-.timer-btn { padding: 16px 22px; background: rgba(255,255,255,0.15); color: white; border: 2px solid rgba(255,255,255,0.2); border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; min-height: 52px; min-width: 100px; }
-.timer-btn:active { background: rgba(255,255,255,0.25); }
-.timer-btn.primary { background: white; color: #c8102e; border-color: white; flex: 1; max-width: 240px; }
-.timer-next-up { font-size: 13px; opacity: 0.6; text-align: center; margin-bottom: 8px; }
+.timer-btn {
+  padding: 16px 22px;
+  background: rgba(255,255,255,0.12);
+  color: white; border: 2px solid rgba(255,255,255,0.15);
+  border-radius: 14px; font-size: 16px; font-weight: 700;
+  cursor: pointer; min-height: 52px; min-width: 100px;
+  font-family: inherit;
+}
+.timer-btn:active { background: rgba(255,255,255,0.2); }
+.timer-btn.primary { background: white; color: var(--accent); border-color: white; flex: 1; max-width: 240px; }
+.timer-next-up { font-size: 13px; opacity: 0.5; text-align: center; margin-bottom: 10px; }
 .timer-next-up strong { opacity: 0.9; font-size: 14px; }
 .timer-done { text-align: center; padding-top: 60px; }
-.timer-done h2 { font-size: 36px; margin: 0 0 12px 0; }
-.timer-done p { font-size: 17px; opacity: 0.85; margin: 0 0 32px 0; }
-.timer-done .stat { background: rgba(255,255,255,0.12); padding: 18px; border-radius: 12px; margin-bottom: 12px; }
+.timer-done h2 { font-size: 36px; margin-bottom: 12px; }
+.timer-done p { font-size: 17px; opacity: 0.8; margin-bottom: 32px; }
+.timer-done .stat { background: rgba(255,255,255,0.1); padding: 18px; border-radius: 14px; margin-bottom: 12px; }
 .timer-done .stat-num { font-size: 32px; font-weight: 800; }
-.timer-done .stat-label { font-size: 13px; opacity: 0.7; letter-spacing: 1px; text-transform: uppercase; }
-@media (max-width: 380px) { .timer-display { font-size: 76px; } .timer-step-text { font-size: 22px; } }
-.tab-pane { display: none; }
-.tab-pane.active { display: block; }
+.timer-done .stat-label { font-size: 13px; opacity: 0.6; letter-spacing: 1px; text-transform: uppercase; }
+
+/* ─── OFF DAY ─── */
+.off-day-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 40px 24px;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  margin-bottom: 20px;
+}
+.off-day-card .emoji { font-size: 48px; margin-bottom: 12px; }
+.off-day-card h2 { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
+.off-day-card p { font-size: 15px; color: var(--text2); }
+
+@media (max-width: 380px) {
+  .today-date { font-size: 26px; }
+  .today-plan-text { font-size: 19px; }
+  .timer-display { font-size: 72px; }
+}
 </style>
 </head>
 <body>
-<div class="wrap">
 
-<header>
-  <span class="km-tag">⚡ KILLER MAYSA SYSTEM</span>
-  <h1>The <em>Killer Maysa</em><br>Hockey Training System</h1>
-  <p>A 12-week plan to come back stronger than ever. BASE → BUILD → PEAK → Japan reset → dominate the season.</p>
-  <div class="badge-row">
-    <span class="hbadge">Right Wing Forward · Age 13</span>
-    <span class="hbadge">Apr 27 → Jul 1</span>
-    <span class="hbadge">Coach Moore Approved</span>
-  </div>
-</header>
-
-<div class="tabs">
-  <button class="tab active" data-pane="plan">📅 Plan</button>
-  <button class="tab" data-pane="workouts">💪 Dryland</button>
-  <button class="tab" data-pane="stick">🥍 Stick Handling</button>
-  <button class="tab" data-pane="library">📚 Exercise Library</button>
+<!-- ═══ TODAY ═══ -->
+<div class="screen active" id="screen-today">
+  <div class="today-greeting" id="today-greeting">Good morning, Maysa</div>
+  <div class="today-date" id="today-date"></div>
+  <div id="today-hero"></div>
+  <div id="today-actions"></div>
+  <div class="phase-progress" id="phase-progress"></div>
+  <div class="week-glance" id="week-glance"></div>
 </div>
 
-<div class="tab-pane active" id="pane-plan">
-
-<div class="plan-hero">
-  <h2>The 12-Week Roadmap</h2>
-  <p>Three blocks of 3 weeks each. Each block builds on the last. Then Japan = total reset (rest IS training).</p>
-  <div class="plan-phases">
-    <div class="phase-box base"><div class="ph-label">WEEKS 1–3</div><div class="ph-name">BASE</div><div class="ph-detail">Apr 27 – May 17 · Learn it the RIGHT way. Slow is fine.</div></div>
-    <div class="phase-box build"><div class="ph-label">WEEKS 4–6</div><div class="ph-name">BUILD</div><div class="ph-detail">May 18 – Jun 7 · Speed it up. Carry the puck fast.</div></div>
-    <div class="phase-box peak"><div class="ph-label">WEEKS 7–9</div><div class="ph-name">PEAK</div><div class="ph-detail">Jun 8 – Jun 28 · Game speed. Beat players 1-on-1.</div></div>
-    <div class="phase-box taper"><div class="ph-label">PRE-JAPAN</div><div class="ph-name">TAPER</div><div class="ph-detail">Jun 29 – Jul 1 · Wind down. Pack bags. Easy days.</div></div>
-  </div>
+<!-- ═══ WORKOUTS ═══ -->
+<div class="screen" id="screen-workouts">
+  <h2 style="font-size:28px;font-weight:800;letter-spacing:-0.8px;margin-bottom:6px;">Dryland</h2>
+  <p style="color:var(--text2);font-size:14px;margin-bottom:24px;">Phase workouts + quick routines. Tap to start a guided timer.</p>
+  <div class="section-title">Phase Workouts</div>
+  <div id="phase-routines"></div>
+  <div class="section-title" style="margin-top:24px;">Quick Routines</div>
+  <div id="quick-routines"></div>
 </div>
 
-<div class="rules-card">
-  <h3>📋 Your Week at a Glance</h3>
-  <div class="week-card">
-    <div class="day-row"><div class="day-name">Mon</div><div class="day-plan">Taekwondo · 15 min driveway</div></div>
-    <div class="day-row"><div class="day-name">Tue</div><div class="day-plan">Religious 4:00 → Ice 5:15–6:05 → 20 min driveway</div></div>
-    <div class="day-row"><div class="day-name">Wed</div><div class="day-plan"><strong>20 min light workout</strong> → Math 4:45–6:15 → 20 min driveway</div></div>
-    <div class="day-row"><div class="day-name">Thu</div><div class="day-plan">Religious 4:00 → Taekwondo → 15 min driveway</div></div>
-    <div class="day-row"><div class="day-name">Fri</div><div class="day-plan">Ice power skating (evening)</div></div>
-    <div class="day-row"><div class="day-name">Sat</div><div class="day-plan"><strong>Workout morning (45–60 min)</strong> → 25 min driveway → REST OF DAY IS YOURS</div></div>
-    <div class="day-row"><div class="day-name">Sun</div><div class="day-plan">DAY OFF. Have fun. Optional 10 min driveway.</div></div>
+<!-- ═══ STICK ═══ -->
+<div class="screen" id="screen-stick">
+  <h2 style="font-size:28px;font-weight:800;letter-spacing:-0.8px;margin-bottom:6px;">Stick Handling</h2>
+  <p style="color:var(--text2);font-size:14px;margin-bottom:24px;">Just a stick and ball. Touch the puck every day.</p>
+  <div class="section-title">Driveway Routines</div>
+  <div id="stick-routines"></div>
+  <div class="targets-card">
+    <h3>Skill Targets by Phase</h3>
+    <div class="target-row"><div class="target-phase base">BASE</div><div class="target-text">Eyes UP, slow, pick a corner every wrist shot. Learn it right.</div></div>
+    <div class="target-row"><div class="target-phase build">BUILD</div><div class="target-text">Quick hands + tennis ball. Mix wrist + snap + backhand.</div></div>
+    <div class="target-row"><div class="target-phase peak">PEAK</div><div class="target-text">Reactive ball. Quick release under 1 second. Corners only.</div></div>
   </div>
 </div>
 
-<div class="rules-card">
-  <h3>💯 Moore's 6 Rules</h3>
-  <ul>
-    <li><strong>Technique FIRST.</strong> Doing it wrong just teaches your body to be wrong.</li>
-    <li><strong>Touch the puck every day.</strong> Stickhandling and shooting — home routine, no skipping.</li>
-    <li><strong>After every coached session</strong>, do 5–20 min in the driveway with what they showed you.</li>
-    <li><strong>No heavy weights.</strong> Bodyweight and quick movement.</li>
-    <li><strong>No long runs.</strong> Short hard bursts, like a hockey shift.</li>
-    <li><strong>Work hard for a block, then take a real break.</strong> Japan = zero hockey. That's on purpose.</li>
-  </ul>
-</div>
-
-<div class="rules-card">
-  <h3>❤️ Take Care of You</h3>
-  <ul>
-    <li>Sleep 8–9 hours. Bed by 9:30 on school nights.</li>
-    <li>Eat before training (snack + water). Eat within 30 min after.</li>
-    <li>If something hurts (sharp pain, not tired muscles), stop and tell Mom/Dad or coach.</li>
-    <li>Miss a day? No big deal. Don't double up. Just do the next one.</li>
-  </ul>
-</div>
-
-<div class="rules-card">
-  <h3>🏒 Your Coaches</h3>
-  <div class="coach-grid">
-    <div class="coach-pill top">⭐ Peggy Ward — Moore's TOP recommendation</div>
-    <div class="coach-pill good">Phil Simoen (Northern Freeze at Steve's)</div>
-    <div class="coach-pill good">P3 Hockey — Good program</div>
-    <div class="coach-pill good">Jay Bergeron — OK</div>
-    <div class="coach-pill avoid">Stefanie Falconie — AVOID (Moore said)</div>
-  </div>
-</div>
-
-<div class="workout-section">
-  <h2>📆 Week-by-Week Schedule</h2>
-  <p class="sub">Tap a week to see what's on each day.</p>
-  <div id="weekly-plan"></div>
-</div>
-
-</div>
-
-<div class="tab-pane" id="pane-workouts">
-
-<div class="workout-section">
-  <h2>🔥 Phase Workouts (BASE → BUILD → PEAK)</h2>
-  <p class="sub">The 6 core dryland sessions from your plan. Tap "Start Guided Workout" — the timer walks you through every step.</p>
-  <div class="workout-grid" id="phase-routines-grid"></div>
-</div>
-
-<div class="workout-section">
-  <h2>⚡ Quick Routines</h2>
-  <p class="sub">Short routines for daily use or pre-game.</p>
-  <div class="workout-grid" id="quick-routines-grid"></div>
-</div>
-
-</div>
-
-<div class="tab-pane" id="pane-stick">
-
-<div class="workout-section">
-  <h2>🥍 Driveway Stick Handling Routines</h2>
-  <p class="sub">Just a stick and ball. Garage door or net for shooting. Touch the puck every day.</p>
-  <span class="gear-line">🎒 Gear: stick + ball + driveway + a wall/garage to shoot at</span>
-  <div class="workout-grid" id="stick-routines-grid"></div>
-</div>
-
-<div class="rules-card">
-  <h3>🎯 Driveway Skill Targets by Phase</h3>
-  <div class="week-card">
-    <div class="day-row"><div class="day-name">BASE</div><div class="day-plan">Eyes UP, slow, pick a corner every wrist shot. Learn it right.</div></div>
-    <div class="day-row"><div class="day-name">BUILD</div><div class="day-plan">Quick hands + tennis ball. Mix wrist + snap + backhand.</div></div>
-    <div class="day-row"><div class="day-name">PEAK</div><div class="day-plan">Reactive ball. Quick release under 1 second. Corners only.</div></div>
-  </div>
-</div>
-
-</div>
-
-<div class="tab-pane" id="pane-library">
-
-<div class="channels-card">
-  <h3>📺 Best Tutorial Channels</h3>
-  <p>Many drills below have direct video links. For others, these channels are gold.</p>
-  <div class="channels-list">
+<!-- ═══ LIBRARY ═══ -->
+<div class="screen" id="screen-library">
+  <h2 style="font-size:28px;font-weight:800;letter-spacing:-0.8px;margin-bottom:6px;">Exercise Library</h2>
+  <p style="color:var(--text2);font-size:14px;margin-bottom:20px;">Every drill with video demos.</p>
+  <div class="section-title">Channels</div>
+  <div class="channels-row">
     <a class="channel-pill" href="https://www.youtube.com/@HowToHockey" target="_blank" rel="noopener"><span class="ch-icon">H2H</span>How to Hockey</a>
     <a class="channel-pill" href="https://www.youtube.com/@iTrainHockey" target="_blank" rel="noopener"><span class="ch-icon">PB</span>Pavel Barber</a>
     <a class="channel-pill" href="https://www.youtube.com/@CoachJeremy_HTH" target="_blank" rel="noopener"><span class="ch-icon">CJ</span>Coach Jeremy</a>
     <a class="channel-pill" href="https://www.youtube.com/@HockeyTrainingDotCom" target="_blank" rel="noopener"><span class="ch-icon">HT</span>Hockey Training</a>
     <a class="channel-pill" href="https://www.youtube.com/@USAHockeyVideos" target="_blank" rel="noopener"><span class="ch-icon">USA</span>USA Hockey</a>
   </div>
-</div>
-
-<div class="controls">
-  <input type="text" class="search" id="search" placeholder="🔎 Search exercises..." />
-  <div class="filter-group" id="lib-tabs">
-    <button class="chip active" data-libtab="dryland">Dryland</button>
-    <button class="chip" data-libtab="stick">Stick</button>
+  <div class="lib-controls">
+    <input type="text" class="lib-search" id="search" placeholder="Search exercises..." />
+    <div class="chip-row" id="lib-tabs">
+      <button class="chip active" data-libtab="dryland">Dryland</button>
+      <button class="chip" data-libtab="stick">Stick</button>
+    </div>
+    <div class="chip-row" id="cat-filters"></div>
+    <div class="chip-row" id="diff-filters">
+      <button class="chip diff-beg" data-diff="Beginner">Beginner</button>
+      <button class="chip diff-int" data-diff="Intermediate">Intermediate</button>
+      <button class="chip diff-adv" data-diff="Advanced">Advanced</button>
+    </div>
   </div>
-  <div class="filter-group" id="cat-filters"></div>
-  <div class="filter-group" id="diff-filters">
-    <button class="chip diff-beg" data-diff="Beginner">Beginner</button>
-    <button class="chip diff-int" data-diff="Intermediate">Intermediate</button>
-    <button class="chip diff-adv" data-diff="Advanced">Advanced</button>
+  <div class="lib-count" id="count"></div>
+  <div id="grid"></div>
+</div>
+
+<!-- ═══ PLAN ═══ -->
+<div class="screen" id="screen-plan">
+  <h2 style="font-size:28px;font-weight:800;letter-spacing:-0.8px;margin-bottom:6px;">The Plan</h2>
+  <p style="color:var(--text2);font-size:14px;margin-bottom:24px;">12 weeks. BASE, BUILD, PEAK, Japan, dominate.</p>
+  <div class="plan-phase-cards">
+    <div class="plan-phase-card base"><div class="ppc-label">WEEKS 1-3</div><div class="ppc-name">BASE</div><div class="ppc-detail">Apr 27 - May 17</div></div>
+    <div class="plan-phase-card build"><div class="ppc-label">WEEKS 4-6</div><div class="ppc-name">BUILD</div><div class="ppc-detail">May 18 - Jun 7</div></div>
+    <div class="plan-phase-card peak"><div class="ppc-label">WEEKS 7-9</div><div class="ppc-name">PEAK</div><div class="ppc-detail">Jun 8 - Jun 28</div></div>
+    <div class="plan-phase-card taper"><div class="ppc-label">PRE-JAPAN</div><div class="ppc-name">TAPER</div><div class="ppc-detail">Jun 29 - Jul 1</div></div>
   </div>
+
+  <div class="rules-section">
+    <h3>Your Week at a Glance</h3>
+    <div class="week-day"><div class="week-day-name">Mon</div><div class="week-day-plan">Taekwondo + 15 min driveway</div></div>
+    <div class="week-day"><div class="week-day-name">Tue</div><div class="week-day-plan">Religious 4:00 &rarr; Ice 5:15-6:05 &rarr; 20 min driveway</div></div>
+    <div class="week-day"><div class="week-day-name">Wed</div><div class="week-day-plan"><strong>20 min light workout</strong> &rarr; Math 4:45-6:15 &rarr; 20 min driveway</div></div>
+    <div class="week-day"><div class="week-day-name">Thu</div><div class="week-day-plan">Religious 4:00 &rarr; Taekwondo &rarr; 15 min driveway</div></div>
+    <div class="week-day"><div class="week-day-name">Fri</div><div class="week-day-plan">Ice power skating (evening)</div></div>
+    <div class="week-day"><div class="week-day-name">Sat</div><div class="week-day-plan"><strong>Workout morning (45-60 min)</strong> &rarr; 25 min driveway &rarr; REST OF DAY IS YOURS</div></div>
+    <div class="week-day"><div class="week-day-name">Sun</div><div class="week-day-plan">DAY OFF. Have fun. Optional 10 min driveway.</div></div>
+  </div>
+
+  <div class="rules-section">
+    <h3>6 Rules</h3>
+    <ul>
+      <li><strong>Technique FIRST.</strong> Doing it wrong just teaches your body to be wrong.</li>
+      <li><strong>Touch the puck every day.</strong> Stickhandling and shooting — home routine, no skipping.</li>
+      <li><strong>After every coached session</strong>, do 5-20 min in the driveway with what they showed you.</li>
+      <li><strong>No heavy weights.</strong> Bodyweight and quick movement.</li>
+      <li><strong>No long runs.</strong> Short hard bursts, like a hockey shift.</li>
+      <li><strong>Work hard for a block, then take a real break.</strong> Japan = zero hockey. That's on purpose.</li>
+    </ul>
+  </div>
+
+  <div class="rules-section">
+    <h3>Take Care of You</h3>
+    <ul>
+      <li>Sleep 8-9 hours. Bed by 9:30 on school nights.</li>
+      <li>Eat before training (snack + water). Eat within 30 min after.</li>
+      <li>If something hurts (sharp pain, not tired muscles), stop and tell Mom/Dad or coach.</li>
+      <li>Miss a day? No big deal. Don't double up. Just do the next one.</li>
+    </ul>
+  </div>
+
+  <div class="rules-section">
+    <h3>Your Coaches</h3>
+    <div class="coach-grid">
+      <div class="coach-pill top">Peggy Ward — TOP recommendation</div>
+      <div class="coach-pill good">Phil Simoen (Northern Freeze at Steve's)</div>
+      <div class="coach-pill good">P3 Hockey — Good program</div>
+      <div class="coach-pill good">Jay Bergeron — OK</div>
+      <div class="coach-pill avoid">Stefanie Falconie — AVOID</div>
+    </div>
+  </div>
+
+  <div class="section-title" style="margin-top:24px;">Week by Week</div>
+  <div id="weekly-plan"></div>
 </div>
 
-<div class="count" id="count"></div>
-<div class="grid" id="grid"></div>
+<!-- ═══ BOTTOM NAV ═══ -->
+<nav class="bottom-nav">
+  <button class="nav-btn active" data-screen="today"><span class="nav-icon">&#9728;&#65039;</span>Today</button>
+  <button class="nav-btn" data-screen="workouts"><span class="nav-icon">&#128170;</span>Dryland</button>
+  <button class="nav-btn" data-screen="stick"><span class="nav-icon">&#127954;</span>Stick</button>
+  <button class="nav-btn" data-screen="library"><span class="nav-icon">&#128218;</span>Library</button>
+  <button class="nav-btn" data-screen="plan"><span class="nav-icon">&#128197;</span>Plan</button>
+</nav>
 
-</div>
-
-</div>
-
+<!-- ═══ TIMER MODAL ═══ -->
 <div class="timer-modal" id="timer-modal">
   <div id="timer-active">
     <div class="timer-top">
@@ -326,20 +588,20 @@ details li { margin-bottom: 5px; }
         <div class="timer-routine-name" id="timer-routine-name"></div>
         <div class="timer-step-num" id="timer-step-num"></div>
       </div>
-      <button class="timer-close" id="timer-close" aria-label="Close">✕</button>
+      <button class="timer-close" id="timer-close" aria-label="Close">&times;</button>
     </div>
     <div class="timer-step-text" id="timer-step-text"></div>
     <div class="timer-display" id="timer-display">0:00</div>
     <div class="timer-progress"><div class="timer-progress-bar" id="timer-progress-bar"></div></div>
     <div class="timer-next-up" id="timer-next-up"></div>
     <div class="timer-buttons">
-      <button class="timer-btn" id="timer-skip">⏭ Skip</button>
-      <button class="timer-btn primary" id="timer-pause">⏸ Pause</button>
+      <button class="timer-btn" id="timer-skip">Skip</button>
+      <button class="timer-btn primary" id="timer-pause">Pause</button>
       <button class="timer-btn" id="timer-add">+15s</button>
     </div>
   </div>
   <div id="timer-done-screen" class="timer-done" style="display:none;">
-    <h2>🏆 KILLER WORK!</h2>
+    <h2>KILLER WORK!</h2>
     <p>Champions are built one rep at a time.</p>
     <div class="stat"><div class="stat-num" id="done-time">0:00</div><div class="stat-label">Total Time</div></div>
     <div class="stat"><div class="stat-num" id="done-steps">0</div><div class="stat-label">Steps Done</div></div>
@@ -348,8 +610,11 @@ details li { margin-bottom: 5px; }
 </div>
 
 <script>
+// ═══════════════════════════════════════
+// DATA (unchanged)
+// ═══════════════════════════════════════
 const PHASE_ROUTINES = [
-  { id: "base-wed", phase: "BASE", name: "Wed Light Workout", duration: "~20 MIN", blurb: "Weeks 1–3 · After-school. Light, no sweat dripping.",
+  { id: "base-wed", phase: "BASE", name: "Wed Light Workout", duration: "~20 MIN", blurb: "Weeks 1-3. After-school. Light, no sweat dripping.",
     steps: [
       { sec: 300, text: "Ladder or line hops — light feet, easy" },
       { sec: 30, text: "Single-leg balance on pillow — RIGHT leg" },
@@ -368,9 +633,9 @@ const PHASE_ROUTINES = [
       { sec: 60, text: "Bird dog — 10 each side (round 2)" },
       { sec: 180, text: "Stretch — hips, hamstrings, calves" }
     ] },
-  { id: "base-sat", phase: "BASE", name: "Sat Big Workout", duration: "~50 MIN", blurb: "Weeks 1–3 · Build the foundation. Quality reps.",
+  { id: "base-sat", phase: "BASE", name: "Sat Big Workout", duration: "~50 MIN", blurb: "Weeks 1-3. Build the foundation. Quality reps.",
     steps: [
-      { sec: 480, text: "Ladder warm-up — 8 min, 4 patterns × 2 passes each" },
+      { sec: 480, text: "Ladder warm-up — 8 min, 4 patterns x 2 passes each" },
       { sec: 90, text: "Squats — 12 reps, smooth" },
       { sec: 90, text: "Squats — 12 reps (set 2)" },
       { sec: 90, text: "Squats — 12 reps (set 3)" },
@@ -392,17 +657,17 @@ const PHASE_ROUTINES = [
       { sec: 60, text: "Side hops — 5 each side" },
       { sec: 60, text: "Side hops — 5 each side (set 2)" },
       { sec: 60, text: "Side hops — 5 each side (set 3)" },
-      { sec: 30, text: "🔥 SPRINT 1 — 30s HARD" },
+      { sec: 30, text: "SPRINT 1 — 30s HARD" },
       { sec: 60, text: "Easy walk/jog — recover" },
-      { sec: 30, text: "🔥 SPRINT 2 — 30s HARD" },
+      { sec: 30, text: "SPRINT 2 — 30s HARD" },
       { sec: 60, text: "Easy recover" },
-      { sec: 30, text: "🔥 SPRINT 3 — 30s HARD" },
+      { sec: 30, text: "SPRINT 3 — 30s HARD" },
       { sec: 60, text: "Easy recover" },
-      { sec: 30, text: "🔥 SPRINT 4 — 30s HARD" },
+      { sec: 30, text: "SPRINT 4 — 30s HARD" },
       { sec: 60, text: "Easy recover" },
-      { sec: 30, text: "🔥 SPRINT 5 — 30s HARD" },
+      { sec: 30, text: "SPRINT 5 — 30s HARD" },
       { sec: 60, text: "Easy recover" },
-      { sec: 30, text: "🔥 SPRINT 6 — 30s HARD (last one!)" },
+      { sec: 30, text: "SPRINT 6 — 30s HARD (last one!)" },
       { sec: 60, text: "Easy walk — cool down" },
       { sec: 30, text: "Plank — 30s" },
       { sec: 60, text: "Dead bug — 10 reps each side" },
@@ -411,7 +676,7 @@ const PHASE_ROUTINES = [
       { sec: 30, text: "Plank — 30s (round 3)" },
       { sec: 60, text: "Dead bug — 10 each side (round 3)" }
     ] },
-  { id: "build-wed", phase: "BUILD", name: "Wed Light Workout", duration: "~22 MIN", blurb: "Weeks 4–6 · Sharper, quicker. Same idea, more intensity.",
+  { id: "build-wed", phase: "BUILD", name: "Wed Light Workout", duration: "~22 MIN", blurb: "Weeks 4-6. Sharper, quicker. Same idea, more intensity.",
     steps: [
       { sec: 300, text: "Ladder warm-up — sharper feet, faster than BASE" },
       { sec: 75, text: "Single-leg RDL — 8 reps RIGHT" },
@@ -432,7 +697,7 @@ const PHASE_ROUTINES = [
       { sec: 20, text: "Side plank — LEFT (round 2)" },
       { sec: 180, text: "Stretch — hips, hamstrings, calves" }
     ] },
-  { id: "build-sat", phase: "BUILD", name: "Sat Big Workout", duration: "~55 MIN", blurb: "Weeks 4–6 · Single-leg work + plyometrics. Add power.",
+  { id: "build-sat", phase: "BUILD", name: "Sat Big Workout", duration: "~55 MIN", blurb: "Weeks 4-6. Single-leg work + plyometrics. Add power.",
     steps: [
       { sec: 480, text: "Ladder warm-up — 8 min, REACTIVE patterns" },
       { sec: 90, text: "Bulgarian split squat — 8 RIGHT leg" },
@@ -462,21 +727,21 @@ const PHASE_ROUTINES = [
       { sec: 45, text: "Broad jumps — 3 BIG ones, stick each landing" },
       { sec: 45, text: "Broad jumps — 3 (set 2)" },
       { sec: 45, text: "Broad jumps — 3 (set 3)" },
-      { sec: 40, text: "🔥 SPRINT 1 — 40s HARD" },
+      { sec: 40, text: "SPRINT 1 — 40s HARD" },
       { sec: 60, text: "Easy recover" },
-      { sec: 40, text: "🔥 SPRINT 2 — 40s" },
+      { sec: 40, text: "SPRINT 2 — 40s" },
       { sec: 60, text: "Easy recover" },
-      { sec: 40, text: "🔥 SPRINT 3 — 40s" },
+      { sec: 40, text: "SPRINT 3 — 40s" },
       { sec: 60, text: "Easy recover" },
-      { sec: 40, text: "🔥 SPRINT 4 — 40s" },
+      { sec: 40, text: "SPRINT 4 — 40s" },
       { sec: 60, text: "Easy recover" },
-      { sec: 40, text: "🔥 SPRINT 5 — 40s" },
+      { sec: 40, text: "SPRINT 5 — 40s" },
       { sec: 60, text: "Easy recover" },
-      { sec: 40, text: "🔥 SPRINT 6 — 40s" },
+      { sec: 40, text: "SPRINT 6 — 40s" },
       { sec: 60, text: "Easy recover" },
-      { sec: 40, text: "🔥 SPRINT 7 — 40s" },
+      { sec: 40, text: "SPRINT 7 — 40s" },
       { sec: 60, text: "Easy recover" },
-      { sec: 40, text: "🔥 SPRINT 8 — 40s LAST ONE" },
+      { sec: 40, text: "SPRINT 8 — 40s LAST ONE" },
       { sec: 60, text: "Cool-down walk" },
       { sec: 45, text: "Plank — 45s" },
       { sec: 20, text: "Hollow hold — 20s" },
@@ -485,7 +750,7 @@ const PHASE_ROUTINES = [
       { sec: 45, text: "Plank — 45s (set 3)" },
       { sec: 20, text: "Hollow hold — 20s (set 3)" }
     ] },
-  { id: "peak-wed", phase: "PEAK", name: "Wed Light Workout", duration: "~22 MIN", blurb: "Weeks 7–9 · Game-speed prep. Crisp and focused.",
+  { id: "peak-wed", phase: "PEAK", name: "Wed Light Workout", duration: "~22 MIN", blurb: "Weeks 7-9. Game-speed prep. Crisp and focused.",
     steps: [
       { sec: 300, text: "Ladder + quick feet — 5 min, sharp" },
       { sec: 60, text: "Single-leg squat to box — 6 reps RIGHT" },
@@ -504,7 +769,7 @@ const PHASE_ROUTINES = [
       { sec: 45, text: "Plank — 45s (round 2)" },
       { sec: 180, text: "Stretch — hips, hamstrings, calves" }
     ] },
-  { id: "peak-sat", phase: "PEAK", name: "Sat Big Workout", duration: "~60 MIN", blurb: "Weeks 7–9 · Game-speed everything. Compete with yourself.",
+  { id: "peak-sat", phase: "PEAK", name: "Sat Big Workout", duration: "~60 MIN", blurb: "Weeks 7-9. Game-speed everything. Compete with yourself.",
     steps: [
       { sec: 480, text: "Ladder + partner mirror drills — 8 min, react and mirror" },
       { sec: 45, text: "Broad jumps — 3 BIG, stick the landings" },
@@ -531,25 +796,25 @@ const PHASE_ROUTINES = [
       { sec: 60, text: "Single-leg RDL — 6 LEFT (set 2)" },
       { sec: 60, text: "Single-leg RDL — 6 RIGHT (set 3)" },
       { sec: 60, text: "Single-leg RDL — 6 LEFT (set 3)" },
-      { sec: 45, text: "🔥 SPRINT 1 — 45s GAME-PACE" },
+      { sec: 45, text: "SPRINT 1 — 45s GAME-PACE" },
       { sec: 60, text: "Easy recover" },
-      { sec: 45, text: "🔥 SPRINT 2 — 45s" },
+      { sec: 45, text: "SPRINT 2 — 45s" },
       { sec: 60, text: "Easy recover" },
-      { sec: 45, text: "🔥 SPRINT 3 — 45s" },
+      { sec: 45, text: "SPRINT 3 — 45s" },
       { sec: 60, text: "Easy recover" },
-      { sec: 45, text: "🔥 SPRINT 4 — 45s" },
+      { sec: 45, text: "SPRINT 4 — 45s" },
       { sec: 60, text: "Easy recover" },
-      { sec: 45, text: "🔥 SPRINT 5 — 45s" },
+      { sec: 45, text: "SPRINT 5 — 45s" },
       { sec: 60, text: "Easy recover" },
-      { sec: 45, text: "🔥 SPRINT 6 — 45s" },
+      { sec: 45, text: "SPRINT 6 — 45s" },
       { sec: 60, text: "Easy recover" },
-      { sec: 45, text: "🔥 SPRINT 7 — 45s" },
+      { sec: 45, text: "SPRINT 7 — 45s" },
       { sec: 60, text: "Easy recover" },
-      { sec: 45, text: "🔥 SPRINT 8 — 45s" },
+      { sec: 45, text: "SPRINT 8 — 45s" },
       { sec: 60, text: "Easy recover" },
-      { sec: 45, text: "🔥 SPRINT 9 — 45s" },
+      { sec: 45, text: "SPRINT 9 — 45s" },
       { sec: 60, text: "Easy recover" },
-      { sec: 45, text: "🔥 SPRINT 10 — 45s LAST ONE!" },
+      { sec: 45, text: "SPRINT 10 — 45s LAST ONE!" },
       { sec: 60, text: "Cool-down walk" },
       { sec: 90, text: "Med ball slams — 6 reps" },
       { sec: 90, text: "Med ball slams — 6 reps (set 2)" },
@@ -567,13 +832,13 @@ const QUICK_ROUTINES = [
       { sec: 300, text: "3 rounds: 10 skater hops + 10 broad jumps (rest 30s between)" },
       { sec: 60, text: "Single-leg balance — RIGHT leg, eyes open then closed" },
       { sec: 60, text: "Single-leg balance — LEFT leg, eyes open then closed" },
-      { sec: 180, text: "Fast feet bursts — 20s on / 10s rest × 6 rounds" }
+      { sec: 180, text: "Fast feet bursts — 20s on / 10s rest x 6 rounds" }
     ] },
   { id: "dry-10", name: "Pre-Game Activation", duration: "10 MIN", blurb: "Wake up the body before warm-ups.",
     steps: [
       { sec: 180, text: "Light jog + leg swings, get heart rate up" },
-      { sec: 120, text: "Lateral bounds × 6 each side" },
-      { sec: 120, text: "High-knee bursts — 10s on / 10s off × 6" },
+      { sec: 120, text: "Lateral bounds x 6 each side" },
+      { sec: 120, text: "High-knee bursts — 10s on / 10s off x 6" },
       { sec: 60, text: "Reaction ball or wall ball — tennis ball off a wall" },
       { sec: 120, text: "Visualize first shift — breathe deep, see yourself winning a battle" }
     ] }
@@ -609,7 +874,7 @@ const STICK_ROUTINES = [
       { sec: 60, text: "Backhand shots — 15 reps, high glove side" },
       { sec: 60, text: "30-sec quick hands test + cool down" }
     ] },
-  { id: "stk-20", name: "Full Session", duration: "20 MIN", blurb: "Game-changer when done 4×/week.",
+  { id: "stk-20", name: "Full Session", duration: "20 MIN", blurb: "Game-changer when done 4x/week.",
     steps: [
       { sec: 120, text: "Wide warm-up + narrow quick hands (60s each)" },
       { sec: 60, text: "One-handed — RIGHT hand only" },
@@ -637,23 +902,23 @@ const STICK_ROUTINES = [
 
 const DRYLAND = [
   { name: "Bird Dog", cat: "Core", diff: "Beginner", time: "2-3 min", equip: "None",
-    desc: "Anti-rotation core stability. Coach Moore's pick for low-back strength.",
+    desc: "Anti-rotation core stability. Great for low-back strength.",
     steps: ["Hands and knees, wrists under shoulders", "Neutral spine — flat back", "Extend opposite arm + leg straight", "Hold 1 sec, return slow", "10 reps each side"],
     tip: "Imagine a glass of water on your low back — don't spill it.",
     yt: "bird dog exercise tutorial form", vid: "KA0ekfSePrQ" },
   { name: "Glute Bridge", cat: "Core", diff: "Beginner", time: "3 min", equip: "None",
     desc: "Activates glutes — the muscle that powers your stride.",
-    steps: ["Lie on back, knees bent, feet flat", "Heels 6-8 inches from butt", "Squeeze glutes, lift hips up", "Body straight from knees to shoulders", "Lower controlled. 12 reps × 3 sets"],
+    steps: ["Lie on back, knees bent, feet flat", "Heels 6-8 inches from butt", "Squeeze glutes, lift hips up", "Body straight from knees to shoulders", "Lower controlled. 12 reps x 3 sets"],
     tip: "Don't arch your back — squeeze glutes to lift, not lower back.",
     yt: "glute bridge exercise proper form", vid: "Q_Bpj91Yiis" },
   { name: "Pallof Press", cat: "Core", diff: "Intermediate", time: "4 min", equip: "Resistance band",
-    desc: "Anti-rotation core. Feels like nothing but builds rock-solid hockey core.",
-    steps: ["Anchor band at chest height", "Stand sideways, hands at chest holding band", "Press straight out — band tries to pull you toward anchor", "Resist the pull — stay square", "Hold 2 sec, return. 10 each side × 3"],
+    desc: "Anti-rotation core. Builds rock-solid hockey core.",
+    steps: ["Anchor band at chest height", "Stand sideways, hands at chest holding band", "Press straight out — band tries to pull you toward anchor", "Resist the pull — stay square", "Hold 2 sec, return. 10 each side x 3"],
     tip: "Brace like someone's about to punch your stomach.",
     yt: "pallof press anti rotation core", vid: "dBAmQ9bx3JA" },
   { name: "Hollow Body Hold", cat: "Core", diff: "Intermediate", time: "3 min", equip: "None",
     desc: "Total-body core tension hold. Hockey players need this.",
-    steps: ["Lie on back, low back pressed to floor", "Lift legs and shoulders off ground", "Arms reaching past your ears", "Body in a banana shape, low back STILL pressed down", "Hold 20-30s × 3 sets"],
+    steps: ["Lie on back, low back pressed to floor", "Lift legs and shoulders off ground", "Arms reaching past your ears", "Body in a banana shape, low back STILL pressed down", "Hold 20-30s x 3 sets"],
     tip: "If your low back lifts, bring your legs higher up.",
     yt: "hollow body hold core tutorial", vid: "0yPin8hSc8o" },
   { name: "Side Plank", cat: "Core", diff: "Beginner", time: "2 min", equip: "None",
@@ -668,57 +933,57 @@ const DRYLAND = [
     yt: "plank variations core workout hockey" },
   { name: "Russian Twists (with weight)", cat: "Core", diff: "Intermediate", time: "4 min", equip: "Med ball/dumbbell",
     desc: "Rotational core — direct shooting power transfer.",
-    steps: ["Sit, lean back to 45°", "Hold weight at chest, feet off ground", "Rotate side to side, tap weight by hip", "20 taps × 3 sets"],
+    steps: ["Sit, lean back to 45 degrees", "Hold weight at chest, feet off ground", "Rotate side to side, tap weight by hip", "20 taps x 3 sets"],
     tip: "Rotate from TORSO, not arms.",
     yt: "russian twist exercise core hockey" },
   { name: "Med Ball Rotational Slams", cat: "Core", diff: "Intermediate", time: "5 min", equip: "Medicine ball",
     desc: "Slam at an angle — explosive rotational power for shots.",
-    steps: ["Stand sideways to wall, feet wide", "Hold med ball at hip", "Rotate hips, slam ball into wall", "Catch and repeat", "6-10 each side × 3"],
+    steps: ["Stand sideways to wall, feet wide", "Hold med ball at hip", "Rotate hips, slam ball into wall", "Catch and repeat", "6-10 each side x 3"],
     tip: "Same hip rotation as a wrist shot.",
     yt: "medicine ball rotational slam hockey" },
   { name: "Dead Bug", cat: "Core", diff: "Beginner", time: "4 min", equip: "None",
     desc: "Lying core stability — bombproof low back.",
-    steps: ["Lie on back, arms up, knees 90°", "Lower right arm and left leg slowly", "Return, alternate", "10 each side × 3"],
+    steps: ["Lie on back, arms up, knees 90 degrees", "Lower right arm and left leg slowly", "Return, alternate", "10 each side x 3"],
     tip: "Press low back into floor entire time.",
     yt: "dead bug core exercise form" },
   { name: "Squat (Bodyweight)", cat: "Strength", diff: "Beginner", time: "3 min", equip: "None",
     desc: "Foundation lower-body movement. Powers your stride.",
-    steps: ["Feet shoulder-width", "Sit hips back like sitting in a chair", "Knees track over toes, chest up", "Lower until thighs parallel to floor", "Stand back up. 12 reps × 3"],
+    steps: ["Feet shoulder-width", "Sit hips back like sitting in a chair", "Knees track over toes, chest up", "Lower until thighs parallel to floor", "Stand back up. 12 reps x 3"],
     tip: "Heels stay on the floor. Knees don't cave inward.",
     yt: "bodyweight squat tutorial proper form" },
   { name: "Lunge", cat: "Strength", diff: "Beginner", time: "4 min", equip: "None",
     desc: "Single-leg strength + balance.",
-    steps: ["Step forward with right leg", "Lower until both knees at 90°", "Front knee over ankle, not past toes", "Push back to start", "8 each leg × 3 sets"],
+    steps: ["Step forward with right leg", "Lower until both knees at 90 degrees", "Front knee over ankle, not past toes", "Push back to start", "8 each leg x 3 sets"],
     tip: "Most weight on the front heel.",
     yt: "forward lunge exercise tutorial form" },
   { name: "Push-up", cat: "Strength", diff: "Beginner", time: "3 min", equip: "None",
     desc: "Upper body strength — push the puck through traffic.",
-    steps: ["Hands shoulder-width, body in plank", "Lower chest to floor (no sagging)", "Push back up", "Knees on floor if needed", "10 reps × 3 sets"],
+    steps: ["Hands shoulder-width, body in plank", "Lower chest to floor (no sagging)", "Push back up", "Knees on floor if needed", "10 reps x 3 sets"],
     tip: "Squeeze glutes and core — don't sag the hips.",
     yt: "push up proper form tutorial" },
   { name: "Bent-Over Row", cat: "Strength", diff: "Beginner", time: "4 min", equip: "Dumbbell or resistance band",
     desc: "Pulling strength — protects against checks.",
-    steps: ["Hinge at hips, flat back, knees soft", "Hold weight or band in each hand", "Pull weight to ribcage, elbows close", "Squeeze shoulder blades", "8 reps each side × 3"],
+    steps: ["Hinge at hips, flat back, knees soft", "Hold weight or band in each hand", "Pull weight to ribcage, elbows close", "Squeeze shoulder blades", "8 reps each side x 3"],
     tip: "Don't shrug. Lead with elbows.",
     yt: "bent over row dumbbell tutorial form" },
   { name: "Bulgarian Split Squat", cat: "Strength", diff: "Intermediate", time: "5 min", equip: "Bench or chair",
     desc: "Single-leg strength king. Builds skating power.",
-    steps: ["Stand 2 ft in front of bench, back foot on bench", "Lower into lunge, front thigh parallel", "Front knee over ankle", "Drive through front heel up", "6-8 reps each leg × 3"],
+    steps: ["Stand 2 ft in front of bench, back foot on bench", "Lower into lunge, front thigh parallel", "Front knee over ankle", "Drive through front heel up", "6-8 reps each leg x 3"],
     tip: "Front foot far enough that your knee tracks over ankle, not past toes.",
     yt: "bulgarian split squat tutorial form", vid: "uODWo4YqbT8" },
   { name: "Romanian Deadlift", cat: "Strength", diff: "Intermediate", time: "5 min", equip: "Optional dumbbells",
     desc: "Hip hinge — builds posterior chain (your skating engine).",
-    steps: ["Stand with weight in hands (or just bodyweight)", "Slight knee bend, lock it in", "Hinge at hips — push butt back", "Lower weight to mid-shin", "Drive hips forward to stand. 8 reps × 3"],
+    steps: ["Stand with weight in hands (or just bodyweight)", "Slight knee bend, lock it in", "Hinge at hips — push butt back", "Lower weight to mid-shin", "Drive hips forward to stand. 8 reps x 3"],
     tip: "Spine stays NEUTRAL — no rounding.",
     yt: "romanian deadlift RDL tutorial form" },
   { name: "Single-Leg Squat to Box", cat: "Strength", diff: "Intermediate", time: "5 min", equip: "Bench or sturdy box",
     desc: "Single-leg squat to a box. Massive single-leg strength builder.",
-    steps: ["Stand on right leg in front of bench", "Other leg extended in front", "Slowly lower to sit on bench (don't drop)", "Stand back up using ONLY right leg", "6 reps each leg × 2-3 sets"],
+    steps: ["Stand on right leg in front of bench", "Other leg extended in front", "Slowly lower to sit on bench (don't drop)", "Stand back up using ONLY right leg", "6 reps each leg x 2-3 sets"],
     tip: "Higher box = easier. Lower the box as you get stronger.",
     yt: "single leg squat to box tutorial" },
   { name: "Single-Leg Balance Hold", cat: "Balance", diff: "Beginner", time: "3 min", equip: "None or pillow",
     desc: "Stand on one leg with eyes closed — foundation balance.",
-    steps: ["Stand on right foot, lift left knee 90°", "Hold 30s eyes open", "Repeat 30s eyes CLOSED", "Switch legs", "3 rounds. Add a pillow under foot for harder."],
+    steps: ["Stand on right foot, lift left knee 90 degrees", "Hold 30s eyes open", "Repeat 30s eyes CLOSED", "Switch legs", "3 rounds. Add a pillow under foot for harder."],
     tip: "Eyes closed is way harder.",
     yt: "single leg balance exercise eyes closed" },
   { name: "Single-Leg Romanian Deadlift", cat: "Balance", diff: "Intermediate", time: "6 min", equip: "Optional dumbbell",
@@ -728,7 +993,7 @@ const DRYLAND = [
     yt: "single leg romanian deadlift tutorial form", vid: "J1ojvq3ftqM" },
   { name: "BOSU Squats", cat: "Balance", diff: "Intermediate", time: "5 min", equip: "BOSU ball",
     desc: "Squats on an unstable surface — fires every stabilizer.",
-    steps: ["Stand on flat side of BOSU (dome down)", "Once stable, squat to 90°", "Stand back up controlled", "10 reps × 3"],
+    steps: ["Stand on flat side of BOSU (dome down)", "Once stable, squat to 90 degrees", "Stand back up controlled", "10 reps x 3"],
     tip: "No BOSU? Folded towel works for beginners.",
     yt: "BOSU ball squat balance training" },
   { name: "Pistol Squat Progressions", cat: "Balance", diff: "Advanced", time: "6 min", equip: "Optional chair",
@@ -741,17 +1006,17 @@ const DRYLAND = [
     steps: ["Stand on right leg, hold stick both hands", "Reach stick forward toward floor", "Reach right, then left", "Reach back overhead", "Switch legs, 3 rounds"],
     tip: "Move SLOWLY.",
     yt: "single leg balance reach exercise hockey" },
-  { name: "Agility Ladder – Two Feet In Each Square", cat: "Agility", diff: "Beginner", time: "2-3 min", equip: "Agility ladder",
+  { name: "Agility Ladder - Two Feet In Each Square", cat: "Agility", diff: "Beginner", time: "2-3 min", equip: "Agility ladder",
     desc: "Foundation footwork — both feet in each square as fast as possible.",
     steps: ["Stand at one end", "Both feet into square 1, then square 2", "Pump arms like sprinting", "Stay on balls of feet", "4-6 passes"],
     tip: "Imagine the ground is hot lava.",
     yt: "agility ladder two feet hockey training" },
-  { name: "Agility Ladder – Icky Shuffle", cat: "Agility", diff: "Intermediate", time: "3 min", equip: "Agility ladder",
+  { name: "Agility Ladder - Icky Shuffle", cat: "Agility", diff: "Intermediate", time: "3 min", equip: "Agility ladder",
     desc: "In-in-out pattern that mimics skating crossovers.",
     steps: ["In with right, in with left, out with right (right of next square)", "In with left, in with right, out with left", "Continue down ladder", "4-5 passes"],
     tip: "Translates DIRECTLY to crossovers.",
     yt: "icky shuffle agility ladder hockey", vid: "aw-b-HLU5ZQ" },
-  { name: "Agility Ladder – Lateral High Knees", cat: "Agility", diff: "Intermediate", time: "2 min", equip: "Agility ladder",
+  { name: "Agility Ladder - Lateral High Knees", cat: "Agility", diff: "Intermediate", time: "2 min", equip: "Agility ladder",
     desc: "Side-facing high-knees — lateral hip mobility.",
     steps: ["Stand sideways at one end", "Lateral motion: lead foot in, trail foot in", "Drive knees high", "Repeat back the other direction"],
     tip: "Hockey is a lateral game.",
@@ -778,17 +1043,17 @@ const DRYLAND = [
     yt: "mirror drill agility hockey partner" },
   { name: "Skater Hops (Lateral Bounds / Side Hops)", cat: "Speed & Power", diff: "Beginner", time: "5 min", equip: "None",
     desc: "Bound side to side on one leg — replicates skating push-off.",
-    steps: ["Start on right leg", "Push off, bound left as far as possible", "Land soft on left, hold 1 sec", "Bound back to right", "5-10 each side × 3 sets"],
+    steps: ["Start on right leg", "Push off, bound left as far as possible", "Land soft on left, hold 1 sec", "Bound back to right", "5-10 each side x 3 sets"],
     tip: "STICK the landing — that's the strength.",
     yt: "lateral skater hops plyometric hockey", vid: "gS4F_YrwZVs" },
   { name: "Broad Jumps", cat: "Speed & Power", diff: "Beginner", time: "4 min", equip: "None",
     desc: "Jump as far forward as possible — explosive leg power.",
-    steps: ["Feet shoulder-width", "Swing arms back, bend knees", "Explode forward, swing arms up", "Land soft, knees bent", "3 reps × 3-4 sets"],
+    steps: ["Feet shoulder-width", "Swing arms back, bend knees", "Explode forward, swing arms up", "Land soft, knees bent", "3 reps x 3-4 sets"],
     tip: "Stick landing 2 sec — control beats distance.",
     yt: "broad jump tutorial form athletes", vid: "GR5JVcHHS_Q" },
   { name: "Box Jumps", cat: "Speed & Power", diff: "Intermediate", time: "5 min", equip: "Sturdy box",
     desc: "Vertical explosive power.",
-    steps: ["Stand 6 in from box", "Swing arms back, dip into quarter squat", "Explode up onto box, land soft", "Stand tall, step DOWN", "4 reps × 3-4 sets"],
+    steps: ["Stand 6 in from box", "Swing arms back, dip into quarter squat", "Explode up onto box, land soft", "Stand tall, step DOWN", "4 reps x 3-4 sets"],
     tip: "Step DOWN, never jump down.",
     yt: "box jump proper form tutorial", vid: "YLPQsdRDmB0" },
   { name: "Tuck Jumps", cat: "Speed & Power", diff: "Intermediate", time: "3 min", equip: "None",
@@ -797,9 +1062,9 @@ const DRYLAND = [
     tip: "Bounce off the floor.",
     yt: "tuck jump plyometric exercise tutorial" },
   { name: "Sprint Intervals (HIIT)", cat: "Speed & Power", diff: "Beginner", time: "12-20 min", equip: "Open space",
-    desc: "Short bursts like a hockey shift. Moore's #1 conditioning.",
+    desc: "Short bursts like a hockey shift. #1 conditioning.",
     steps: ["Find open space (driveway, yard, park)", "Sprint hard for 30-45 seconds", "Walk easy for 60 seconds to recover", "Repeat 6-10 rounds depending on phase"],
-    tip: "Phase BASE: 6×30s/60s. BUILD: 8×40s/60s. PEAK: 10×45s/60s.",
+    tip: "Phase BASE: 6x30s/60s. BUILD: 8x40s/60s. PEAK: 10x45s/60s.",
     yt: "hockey sprint interval training HIIT" },
   { name: "10-Yard Sprints", cat: "Speed & Power", diff: "Beginner", time: "8 min", equip: "Open space",
     desc: "First 10 yards = first three strides on ice.",
@@ -813,7 +1078,7 @@ const DRYLAND = [
     yt: "hill sprints athlete training tutorial" },
   { name: "Reaction Ball Drops", cat: "Quickness", diff: "Beginner", time: "5 min", equip: "Reaction ball",
     desc: "Bouncy ball with random rebounds — pure hand-eye reaction.",
-    steps: ["Stand 2 ft from a wall", "Drop ball or bounce against wall", "React, catch before second bounce", "60s × 4 rounds"],
+    steps: ["Stand 2 ft from a wall", "Drop ball or bounce against wall", "React, catch before second bounce", "60s x 4 rounds"],
     tip: "No reaction ball? Tennis ball off textured wall.",
     yt: "reaction ball drill hockey hand eye" },
   { name: "Wall Ball (Tennis Ball)", cat: "Quickness", diff: "Beginner", time: "5 min", equip: "Tennis ball + wall",
@@ -828,22 +1093,22 @@ const DRYLAND = [
     yt: "reaction sprint partner ball drill" },
   { name: "Slide Board Lateral Crossover", cat: "Quickness", diff: "Advanced", time: "8 min", equip: "Slide board",
     desc: "Closest off-ice move to actual skating crossovers.",
-    steps: ["Stand on slide board with booties", "Push off one foot, glide to opposite bumper", "Land in skating stance", "30s × 4 rounds"],
+    steps: ["Stand on slide board with booties", "Push off one foot, glide to opposite bumper", "Land in skating stance", "30s x 4 rounds"],
     tip: "No slide board? Smooth tile floor with thick socks.",
     yt: "slide board hockey training crossover", vid: "wMtlNsmLaLc" },
   { name: "Hockey Stride Walk", cat: "Hockey-Specific", diff: "Beginner", time: "5 min", equip: "Open space",
     desc: "Walking lunge with lateral push — grooves the skating motion.",
-    steps: ["Step right foot wide forward at 45°", "Drop into lunge", "Push off back leg into next stride", "Walk 20 yards, turn, return"],
+    steps: ["Step right foot wide forward at 45 degrees", "Drop into lunge", "Push off back leg into next stride", "Walk 20 yards, turn, return"],
     tip: "Feel inner thigh stretch — that's the stride muscle.",
     yt: "hockey stride lunge dryland exercise" },
   { name: "Resisted Lateral Skating (Band)", cat: "Hockey-Specific", diff: "Intermediate", time: "6 min", equip: "Resistance band",
     desc: "Band-resisted skating stride — direct stride muscle training.",
-    steps: ["Loop band around waist, anchor to side", "Skating stance", "Push off inside leg, glide laterally", "10 each side × 3 sets"],
+    steps: ["Loop band around waist, anchor to side", "Skating stance", "Push off inside leg, glide laterally", "10 each side x 3 sets"],
     tip: "Best dryland for skating power.",
     yt: "resistance band lateral skating hockey" },
   { name: "Heiden Hops", cat: "Hockey-Specific", diff: "Advanced", time: "5 min", equip: "None",
     desc: "Big single-leg lateral hops — pure skating power.",
-    steps: ["Stand on right leg", "Bend deep, swing arms", "Bound LATERALLY as far as possible", "Stick landing 1 sec", "8 each side × 3 sets"],
+    steps: ["Stand on right leg", "Bend deep, swing arms", "Bound LATERALLY as far as possible", "Stick landing 1 sec", "8 each side x 3 sets"],
     tip: "Distance matters here.",
     yt: "heiden hops hockey training plyometric" }
 ];
@@ -851,32 +1116,32 @@ const DRYLAND = [
 const STICK = [
   { name: "Wide Stationary Stickhandling", cat: "Stationary", diff: "Beginner", time: "2 min sets", equip: "Stick + ball",
     desc: "Foundation. Move puck side to side wide.",
-    steps: ["Athletic stance, head UP", "Roll wrists to cup the ball", "Move wide, 18-24 inches", "60s on, 30s rest × 4-5 sets"],
+    steps: ["Athletic stance, head UP", "Roll wrists to cup the ball", "Move wide, 18-24 inches", "60s on, 30s rest x 4-5 sets"],
     tip: "Bottom hand guides, top hand drives. Look UP.",
     yt: "stationary stickhandling drill hockey", vid: "kbYONshgR4A" },
   { name: "Narrow Quick Hands", cat: "Stationary", diff: "Beginner", time: "1 min sets", equip: "Stick + ball",
     desc: "Tight, fast handles — same speed as game traffic.",
-    steps: ["Tight 6-inch zone", "Move FAST side to side", "Loose shoulders", "30s all-out × 5 sets"],
+    steps: ["Tight 6-inch zone", "Move FAST side to side", "Loose shoulders", "30s all-out x 5 sets"],
     tip: "Like dribbling a basketball.",
     yt: "quick hands stickhandling drill hockey" },
   { name: "Front-to-Back Toe Drag Pulls", cat: "Stationary", diff: "Intermediate", time: "3 min", equip: "Stick + ball",
     desc: "Drag from toe to heel — sets up beating defenders.",
-    steps: ["Ball off your toe, far from feet", "Drag toe of blade across ball, pull to feet", "Push back wide, repeat", "30 reps × 3 sets"],
+    steps: ["Ball off your toe, far from feet", "Drag toe of blade across ball, pull to feet", "Push back wide, repeat", "30 reps x 3 sets"],
     tip: "Toe drag is the #1 move to beat a defender.",
     yt: "toe drag stickhandling pavel barber", vid: "pmNnMqKU-PU" },
   { name: "Figure 8 Around Feet", cat: "Stationary", diff: "Beginner", time: "2 min sets", equip: "Stick + ball",
     desc: "Weave puck in figure 8 between your feet.",
-    steps: ["Stand wide, feet planted", "Weave around right foot then left", "Smooth figure 8", "30s each direction × 4 sets"],
+    steps: ["Stand wide, feet planted", "Weave around right foot then left", "Smooth figure 8", "30s each direction x 4 sets"],
     tip: "Don't slow down at the curves.",
     yt: "figure 8 stickhandling drill hockey", vid: "kdm4LXlkZzE" },
   { name: "One-Handed Stickhandling", cat: "Stationary", diff: "Intermediate", time: "3 min", equip: "Stick + ball",
     desc: "Top hand only — elite top-hand control.",
-    steps: ["Stick with TOP hand only", "Move puck side to side", "Wrist roll only", "30s × 4 sets"],
+    steps: ["Stick with TOP hand only", "Move puck side to side", "Wrist roll only", "30s x 4 sets"],
     tip: "Top hand should do 70% of the work.",
     yt: "one handed stickhandling drill hockey", vid: "Wv5itCUAdNA" },
   { name: "Around the World", cat: "Stationary", diff: "Intermediate", time: "3 min", equip: "Stick + ball",
     desc: "Move puck around your body.",
-    steps: ["Start with puck in front", "Walk it around right side", "Behind your back", "Around left, return to front", "10 each direction × 3"],
+    steps: ["Start with puck in front", "Walk it around right side", "Behind your back", "Around left, return to front", "10 each direction x 3"],
     tip: "Teaches blade awareness in tight spaces.",
     yt: "around the body stickhandling drill" },
   { name: "Through the Legs", cat: "Stationary", diff: "Advanced", time: "3 min", equip: "Stick + ball",
@@ -886,17 +1151,17 @@ const STICK = [
     yt: "through the legs stickhandling drill" },
   { name: "Cone Weave Stickhandling", cat: "Moving", diff: "Beginner", time: "5 min", equip: "5 cones + stick + ball",
     desc: "Snake through cones with puck.",
-    steps: ["5 cones in a line, 3 ft apart", "Weave through controlling puck", "Down and back × 5 rounds"],
+    steps: ["5 cones in a line, 3 ft apart", "Weave through controlling puck", "Down and back x 5 rounds"],
     tip: "Two-touch each cone. Head UP.",
     yt: "cone weave stickhandling driveway hockey" },
   { name: "Tight Quick Cones", cat: "Moving", diff: "Intermediate", time: "5 min", equip: "5 cones + stick + ball",
     desc: "Cones spaced 18 inches apart — tight, fast hands.",
-    steps: ["5 cones 18 inches apart", "Quick narrow handles", "Down and back × 6", "Time yourself"],
+    steps: ["5 cones 18 inches apart", "Quick narrow handles", "Down and back x 6", "Time yourself"],
     tip: "Hands hung up? Slow down.",
     yt: "tight cone stickhandling fast hands hockey" },
   { name: "Box Pattern", cat: "Moving", diff: "Beginner", time: "4 min", equip: "Stick + ball",
-    desc: "Move puck around imaginary 6×6 ft square.",
-    steps: ["Picture a 6×6 ft square", "Move around controlling puck", "Switch directions every lap", "5 laps each way"],
+    desc: "Move puck around imaginary 6x6 ft square.",
+    steps: ["Picture a 6x6 ft square", "Move around controlling puck", "Switch directions every lap", "5 laps each way"],
     tip: "Plant outside foot, swing puck inside.",
     yt: "box pattern stickhandling hockey drill" },
   { name: "Off-Balance Stickhandling", cat: "Moving", diff: "Advanced", time: "4 min", equip: "Stick + ball",
@@ -906,12 +1171,12 @@ const STICK = [
     yt: "single leg balance stickhandling drill" },
   { name: "Tennis Ball Stickhandling", cat: "Skill Builder", diff: "Beginner", time: "3 min sets", equip: "Stick + tennis ball",
     desc: "Bounces unpredictably — softer, smarter hands.",
-    steps: ["Tennis ball instead of regular ball", "Same handle drills", "Keep it on the blade as it bounces", "60s on, 30s rest × 5"],
+    steps: ["Tennis ball instead of regular ball", "Same handle drills", "Keep it on the blade as it bounces", "60s on, 30s rest x 5"],
     tip: "Switch back to a real puck right after — feels easy.",
     yt: "tennis ball stickhandling drill hockey" },
   { name: "Golf Ball Stickhandling", cat: "Skill Builder", diff: "Advanced", time: "3 min sets", equip: "Stick + golf ball",
     desc: "Tiny ball = pro-level hand-eye.",
-    steps: ["Golf ball on driveway", "Soft, controlled handles", "Don't let it past your blade", "60s × 4 sets"],
+    steps: ["Golf ball on driveway", "Soft, controlled handles", "Don't let it past your blade", "60s x 4 sets"],
     tip: "Control a golf ball, a puck feels HUGE.",
     yt: "golf ball stickhandling hockey drill" },
   { name: "Quick Hands 30-Second Test", cat: "Skill Builder", diff: "Intermediate", time: "Quick", equip: "Stick + ball",
@@ -921,7 +1186,7 @@ const STICK = [
     yt: "30 second stickhandling test hockey" },
   { name: "Reaction Stickhandling (Partner)", cat: "Skill Builder", diff: "Intermediate", time: "5 min", equip: "Partner + stick + ball",
     desc: "Partner calls right/left — pull puck that way.",
-    steps: ["Stickhandle normally", "Partner calls direction", "Pull puck instantly", "30s rounds × 4"],
+    steps: ["Stickhandle normally", "Partner calls direction", "Pull puck instantly", "30s rounds x 4"],
     tip: "Train eyes to scan AND hands to react.",
     yt: "reaction stickhandling partner drill hockey" },
   { name: "Wrist Shot Wall Reps", cat: "Shooting", diff: "Beginner", time: "10 min", equip: "Stick + ball + garage/net",
@@ -959,141 +1224,332 @@ const STICK = [
 const WEEKLY_PLAN = [
   { num: 1, phase: "BASE", date: "Apr 27", focus: "Learn it the RIGHT way",
     days: [
-      { d: "Mon Apr 27", t: "Taekwondo + 15 min driveway" },
-      { d: "Tue Apr 28", t: "Religious 4:00 → Ice 5:15-6:05 → 20 min driveway" },
-      { d: "Wed Apr 29", t: "20 min light workout (Wed Light) → 20 min driveway" },
-      { d: "Thu Apr 30", t: "Religious → Taekwondo → 15 min driveway" },
-      { d: "Fri May 01", t: "Ice power skating evening" },
-      { d: "Sat May 02", t: "Workout morning (Sat Big) + 25 min driveway" },
-      { d: "Sun May 03", t: "DAY OFF · Optional 10 min driveway" } ] },
-  { num: 2, phase: "BASE", date: "May 04",
+      { d: "Mon Apr 28", t: "Taekwondo + 15 min driveway" },
+      { d: "Tue Apr 29", t: "Religious 4:00 → Ice 5:15-6:05 → 20 min driveway" },
+      { d: "Wed Apr 30", t: "20 min light workout (Wed Light) → 20 min driveway" },
+      { d: "Thu May 01", t: "Religious → Taekwondo → 15 min driveway" },
+      { d: "Fri May 02", t: "Ice power skating evening" },
+      { d: "Sat May 03", t: "Workout morning (Sat Big) + 25 min driveway" },
+      { d: "Sun May 04", t: "DAY OFF · Optional 10 min driveway" } ] },
+  { num: 2, phase: "BASE", date: "May 05",
     days: [
-      { d: "Mon May 04", t: "Taekwondo + 15 min driveway" },
-      { d: "Tue May 05", t: "Ice 5:15-6:05 → 20 min driveway" },
-      { d: "Wed May 06", t: "20 min light workout (Wed Light) → 20 min driveway" },
-      { d: "Thu May 07", t: "Taekwondo → 15 min driveway" },
-      { d: "Fri May 08", t: "Ice power skating" },
-      { d: "Sat May 09", t: "Sat Big Workout + 25 min driveway" },
-      { d: "Sun May 10", t: "DAY OFF" } ] },
-  { num: 3, phase: "BASE", date: "May 11",
+      { d: "Mon May 05", t: "Taekwondo + 15 min driveway" },
+      { d: "Tue May 06", t: "Ice 5:15-6:05 → 20 min driveway" },
+      { d: "Wed May 07", t: "20 min light workout (Wed Light) → 20 min driveway" },
+      { d: "Thu May 08", t: "Taekwondo → 15 min driveway" },
+      { d: "Fri May 09", t: "Ice power skating" },
+      { d: "Sat May 10", t: "Sat Big Workout + 25 min driveway" },
+      { d: "Sun May 11", t: "DAY OFF" } ] },
+  { num: 3, phase: "BASE", date: "May 12",
     days: [
-      { d: "Mon May 11", t: "Taekwondo + 15 min driveway" },
-      { d: "Tue May 12", t: "Ice 5:15-6:05 → 20 min driveway" },
-      { d: "Wed May 13", t: "Wed Light Workout → 20 min driveway" },
-      { d: "Thu May 14", t: "Taekwondo → 15 min driveway" },
-      { d: "Fri May 15", t: "Ice power skating" },
-      { d: "Sat May 16", t: "Sat Big Workout + 25 min driveway" },
-      { d: "Sun May 17", t: "DAY OFF" } ] },
-  { num: 4, phase: "BUILD", date: "May 18", focus: "Speed it up — carry the puck fast",
+      { d: "Mon May 12", t: "Taekwondo + 15 min driveway" },
+      { d: "Tue May 13", t: "Ice 5:15-6:05 → 20 min driveway" },
+      { d: "Wed May 14", t: "Wed Light Workout → 20 min driveway" },
+      { d: "Thu May 15", t: "Taekwondo → 15 min driveway" },
+      { d: "Fri May 16", t: "Ice power skating" },
+      { d: "Sat May 17", t: "Sat Big Workout + 25 min driveway" },
+      { d: "Sun May 18", t: "DAY OFF" } ] },
+  { num: 4, phase: "BUILD", date: "May 19", focus: "Speed it up — carry the puck fast",
     days: [
-      { d: "Mon May 18", t: "Taekwondo + 15 min driveway (quick hands)" },
-      { d: "Tue May 19", t: "Ice → 20-25 min driveway (mix shots)" },
-      { d: "Wed May 20", t: "BUILD Wed Light → 20 min driveway" },
-      { d: "Thu May 21", t: "Taekwondo → 15 min driveway" },
-      { d: "Fri May 22", t: "Ice power skating" },
-      { d: "Sat May 23", t: "BUILD Sat Big + 25 min driveway" },
-      { d: "Sun May 24", t: "DAY OFF" } ] },
-  { num: 5, phase: "BUILD", date: "May 25",
+      { d: "Mon May 19", t: "Taekwondo + 15 min driveway (quick hands)" },
+      { d: "Tue May 20", t: "Ice → 20-25 min driveway (mix shots)" },
+      { d: "Wed May 21", t: "BUILD Wed Light → 20 min driveway" },
+      { d: "Thu May 22", t: "Taekwondo → 15 min driveway" },
+      { d: "Fri May 23", t: "Ice power skating" },
+      { d: "Sat May 24", t: "BUILD Sat Big + 25 min driveway" },
+      { d: "Sun May 25", t: "DAY OFF" } ] },
+  { num: 5, phase: "BUILD", date: "May 26",
     days: [
-      { d: "Mon May 25", t: "Taekwondo + 15 min driveway" },
-      { d: "Tue May 26", t: "Ice → 20-25 min driveway" },
-      { d: "Wed May 27", t: "BUILD Wed Light → 20 min driveway" },
-      { d: "Thu May 28", t: "Taekwondo → 15 min driveway" },
-      { d: "Fri May 29", t: "Ice power skating" },
-      { d: "Sat May 30", t: "BUILD Sat Big + 25 min driveway" },
-      { d: "Sun May 31", t: "DAY OFF" } ] },
-  { num: 6, phase: "BUILD", date: "Jun 01",
+      { d: "Mon May 26", t: "Taekwondo + 15 min driveway" },
+      { d: "Tue May 27", t: "Ice → 20-25 min driveway" },
+      { d: "Wed May 28", t: "BUILD Wed Light → 20 min driveway" },
+      { d: "Thu May 29", t: "Taekwondo → 15 min driveway" },
+      { d: "Fri May 30", t: "Ice power skating" },
+      { d: "Sat May 31", t: "BUILD Sat Big + 25 min driveway" },
+      { d: "Sun Jun 01", t: "DAY OFF" } ] },
+  { num: 6, phase: "BUILD", date: "Jun 02",
     days: [
-      { d: "Mon Jun 01", t: "Taekwondo + 15 min driveway" },
-      { d: "Tue Jun 02", t: "Ice → 20-25 min driveway" },
-      { d: "Wed Jun 03", t: "BUILD Wed Light → 20 min driveway" },
-      { d: "Thu Jun 04", t: "Taekwondo → 15 min driveway" },
-      { d: "Fri Jun 05", t: "Ice power skating" },
-      { d: "Sat Jun 06", t: "BUILD Sat Big + 25 min driveway" },
-      { d: "Sun Jun 07", t: "DAY OFF" } ] },
-  { num: 7, phase: "PEAK", date: "Jun 08", focus: "Game speed — beat players 1-on-1",
+      { d: "Mon Jun 02", t: "Taekwondo + 15 min driveway" },
+      { d: "Tue Jun 03", t: "Ice → 20-25 min driveway" },
+      { d: "Wed Jun 04", t: "BUILD Wed Light → 20 min driveway" },
+      { d: "Thu Jun 05", t: "Taekwondo → 15 min driveway" },
+      { d: "Fri Jun 06", t: "Ice power skating" },
+      { d: "Sat Jun 07", t: "BUILD Sat Big + 25 min driveway" },
+      { d: "Sun Jun 08", t: "DAY OFF" } ] },
+  { num: 7, phase: "PEAK", date: "Jun 09", focus: "Game speed — beat players 1-on-1",
     days: [
-      { d: "Mon Jun 08", t: "Taekwondo + 15 min driveway (corners only)" },
-      { d: "Tue Jun 09", t: "Ice → 25 min driveway" },
-      { d: "Wed Jun 10", t: "PEAK Wed Light → 20 min driveway" },
-      { d: "Thu Jun 11", t: "Taekwondo → 15 min driveway" },
-      { d: "Fri Jun 12", t: "Ice power skating" },
-      { d: "Sat Jun 13", t: "PEAK Sat Big + 25 min driveway (100 shots!)" },
-      { d: "Sun Jun 14", t: "DAY OFF" } ] },
-  { num: 8, phase: "PEAK", date: "Jun 15",
+      { d: "Mon Jun 09", t: "Taekwondo + 15 min driveway (corners only)" },
+      { d: "Tue Jun 10", t: "Ice → 25 min driveway" },
+      { d: "Wed Jun 11", t: "PEAK Wed Light → 20 min driveway" },
+      { d: "Thu Jun 12", t: "Taekwondo → 15 min driveway" },
+      { d: "Fri Jun 13", t: "Ice power skating" },
+      { d: "Sat Jun 14", t: "PEAK Sat Big + 25 min driveway (100 shots!)" },
+      { d: "Sun Jun 15", t: "DAY OFF" } ] },
+  { num: 8, phase: "PEAK", date: "Jun 16",
     days: [
-      { d: "Mon Jun 15", t: "Taekwondo + 15 min driveway" },
-      { d: "Tue Jun 16", t: "Ice → 25 min driveway" },
-      { d: "Wed Jun 17", t: "PEAK Wed Light → 20 min driveway" },
-      { d: "Thu Jun 18", t: "Taekwondo → 15 min driveway" },
-      { d: "Fri Jun 19", t: "Ice power skating" },
-      { d: "Sat Jun 20", t: "PEAK Sat Big + 25 min driveway" },
-      { d: "Sun Jun 21", t: "DAY OFF" } ] },
-  { num: 9, phase: "PEAK", date: "Jun 22",
+      { d: "Mon Jun 16", t: "Taekwondo + 15 min driveway" },
+      { d: "Tue Jun 17", t: "Ice → 25 min driveway" },
+      { d: "Wed Jun 18", t: "PEAK Wed Light → 20 min driveway" },
+      { d: "Thu Jun 19", t: "Taekwondo → 15 min driveway" },
+      { d: "Fri Jun 20", t: "Ice power skating" },
+      { d: "Sat Jun 21", t: "PEAK Sat Big + 25 min driveway" },
+      { d: "Sun Jun 22", t: "DAY OFF" } ] },
+  { num: 9, phase: "PEAK", date: "Jun 23",
     days: [
-      { d: "Mon Jun 22", t: "Taekwondo + 15 min driveway" },
-      { d: "Tue Jun 23", t: "Ice → 25 min driveway" },
-      { d: "Wed Jun 24", t: "PEAK Wed Light → 20 min driveway" },
-      { d: "Thu Jun 25", t: "Taekwondo → 15 min driveway" },
-      { d: "Fri Jun 26", t: "Ice power skating" },
-      { d: "Sat Jun 27", t: "PEAK Sat Big + 25 min driveway" },
-      { d: "Sun Jun 28", t: "DAY OFF" } ] },
-  { num: 10, phase: "TAPER", date: "Jun 29", focus: "Pre-Japan wind down",
+      { d: "Mon Jun 23", t: "Taekwondo + 15 min driveway" },
+      { d: "Tue Jun 24", t: "Ice → 25 min driveway" },
+      { d: "Wed Jun 25", t: "PEAK Wed Light → 20 min driveway" },
+      { d: "Thu Jun 26", t: "Taekwondo → 15 min driveway" },
+      { d: "Fri Jun 27", t: "Ice power skating" },
+      { d: "Sat Jun 28", t: "PEAK Sat Big + 25 min driveway" },
+      { d: "Sun Jun 29", t: "DAY OFF" } ] },
+  { num: 10, phase: "TAPER", date: "Jun 30", focus: "Pre-Japan wind down",
     days: [
-      { d: "Mon Jun 29", t: "Easy TKD + 15 min chill driveway" },
-      { d: "Tue Jun 30", t: "LAST ice session before Japan! + 15 min driveway" },
-      { d: "Wed Jul 01", t: "Travel prep · Optional 10 min driveway" },
-      { d: "Jul 2-18", t: "🇯🇵 JAPAN! Zero hockey. Rest IS training." } ] }
+      { d: "Mon Jun 30", t: "Easy TKD + 15 min chill driveway" },
+      { d: "Tue Jul 01", t: "LAST ice session before Japan! + 15 min driveway" },
+      { d: "Wed Jul 02", t: "Travel prep · Optional 10 min driveway" },
+      { d: "Jul 3-18", t: "JAPAN! Zero hockey. Rest IS training." } ] }
 ];
 
-const TABS = { dryland: DRYLAND, stick: STICK };
-let libTab = "dryland";
-let activeCat = null;
-let activeDiff = null;
-let searchTerm = "";
+// ═══════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════
+const TABS_DATA = { dryland: DRYLAND, stick: STICK };
+let libTab = "dryland", activeCat = null, activeDiff = null, searchTerm = "";
 
 function ytLink(q) { return `https://www.youtube.com/results?search_query=${encodeURIComponent(q)}`; }
 function ytWatch(id) { return `https://www.youtube.com/watch?v=${id}`; }
-function categoriesFor(tab) { return [...new Set(TABS[tab].map(d => d.cat))]; }
+function categoriesFor(tab) { return [...new Set(TABS_DATA[tab].map(d => d.cat))]; }
 function diffClass(d) { return d === "Beginner" ? "diff-beg" : d === "Intermediate" ? "diff-int" : "diff-adv"; }
 function fmtTime(s) { const m = Math.floor(s/60); const r = s%60; return r ? (m ? `${m}:${String(r).padStart(2,'0')}` : `${r}s`) : `${m} min`; }
 function fmtMMSS(s) { const m = Math.floor(s/60); const r = s%60; return `${m}:${String(r).padStart(2,'0')}`; }
-function escAttr(s) { return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
 function phaseClass(p) { return p ? p.toLowerCase() : ""; }
 
+// ═══════════════════════════════════════
+// TODAY SCREEN
+// ═══════════════════════════════════════
+function getTodayInfo() {
+  const now = new Date();
+  const dayNames = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+  const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  const dayOfWeek = now.getDay();
+  const dayName = dayNames[dayOfWeek];
+  const shortDay = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][dayOfWeek];
+  const monthName = monthNames[now.getMonth()];
+  const dateNum = now.getDate();
+
+  // Find today in WEEKLY_PLAN
+  const todayStr = `${["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][now.getMonth()]} ${String(dateNum).padStart(2,'0')}`;
+  let todayPlan = null, weekNum = null, phase = null;
+  for (const w of WEEKLY_PLAN) {
+    for (const d of w.days) {
+      if (d.d.includes(todayStr)) {
+        todayPlan = d.t;
+        weekNum = w.num;
+        phase = w.phase;
+        break;
+      }
+    }
+    if (todayPlan) break;
+  }
+
+  // Determine current phase by date ranges
+  if (!phase) {
+    const m = now.getMonth(), dd = dateNum;
+    if (m < 3 || (m === 3 && dd < 28)) phase = null;
+    else if (m === 3 || (m === 4 && dd <= 18)) phase = "BASE";
+    else if (m === 4 || (m === 5 && dd <= 8)) phase = "BUILD";
+    else if (m === 5 && dd <= 29) phase = "PEAK";
+    else phase = "TAPER";
+  }
+
+  // Greeting
+  const hour = now.getHours();
+  let greeting = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
+
+  return { dayName, shortDay, monthName, dateNum, dayOfWeek, todayPlan, weekNum, phase, greeting };
+}
+
+function getCurrentWeek() {
+  const now = new Date();
+  const todayStr = `${["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][now.getMonth()]} ${String(now.getDate()).padStart(2,'0')}`;
+  for (const w of WEEKLY_PLAN) {
+    for (const d of w.days) {
+      if (d.d.includes(todayStr)) return w;
+    }
+  }
+  // fallback: return first week
+  return WEEKLY_PLAN[0];
+}
+
+function getPhaseProgress(phase) {
+  const phases = ["BASE","BUILD","PEAK","TAPER"];
+  const idx = phases.indexOf(phase);
+  if (idx < 0) return 0;
+  return ((idx + 1) / phases.length) * 100;
+}
+
+function getSuggestedWorkout(dayOfWeek, phase) {
+  // Return suggested workout routine based on day
+  const p = (phase || "BASE").toLowerCase();
+  if (dayOfWeek === 3) { // Wednesday
+    return PHASE_ROUTINES.find(r => r.id === p + "-wed") || PHASE_ROUTINES[0];
+  }
+  if (dayOfWeek === 6) { // Saturday
+    return PHASE_ROUTINES.find(r => r.id === p + "-sat") || PHASE_ROUTINES[1];
+  }
+  return null;
+}
+
+function getSuggestedStick(dayOfWeek) {
+  if (dayOfWeek === 0) return null; // Sunday off
+  if (dayOfWeek === 6) return STICK_ROUTINES.find(r => r.id === "stk-20");
+  if (dayOfWeek === 5) return null; // Friday ice only
+  if ([1,4].includes(dayOfWeek)) return STICK_ROUTINES.find(r => r.id === "stk-10");
+  return STICK_ROUTINES.find(r => r.id === "stk-15");
+}
+
+function renderToday() {
+  const info = getTodayInfo();
+  document.getElementById("today-greeting").textContent = info.greeting + ", Maysa";
+  document.getElementById("today-date").textContent = `${info.dayName}, ${info.monthName} ${info.dateNum}`;
+
+  const heroEl = document.getElementById("today-hero");
+  const isOffDay = info.dayOfWeek === 0;
+  const isIceOnly = info.dayOfWeek === 5;
+
+  if (isOffDay) {
+    heroEl.innerHTML = `
+      <div class="off-day-card">
+        <div class="emoji">&#127754;</div>
+        <h2>Day Off</h2>
+        <p>Have fun. Rest up. Optional 10 min driveway if you're feeling it.</p>
+      </div>`;
+  } else {
+    const planText = info.todayPlan || getDefaultPlan(info.dayOfWeek);
+    heroEl.innerHTML = `
+      <div class="today-card">
+        ${info.phase ? `<div class="today-phase-tag">${info.phase}${info.weekNum ? ' · WEEK ' + info.weekNum : ''}</div>` : ''}
+        <div class="today-plan-text">${planText}</div>
+      </div>`;
+  }
+
+  // Action buttons
+  const actionsEl = document.getElementById("today-actions");
+  let actionsHTML = '';
+
+  const workout = getSuggestedWorkout(info.dayOfWeek, info.phase);
+  if (workout) {
+    actionsHTML += `
+      <button class="action-btn" onclick="startWorkout('${workout.id}')">
+        <div class="action-icon red">&#128293;</div>
+        <div class="action-label">Start ${workout.name}<small>${workout.duration}</small></div>
+        <div class="action-arrow">&#8250;</div>
+      </button>`;
+  }
+
+  const stick = getSuggestedStick(info.dayOfWeek);
+  if (stick) {
+    actionsHTML += `
+      <button class="action-btn" onclick="startWorkout('${stick.id}')">
+        <div class="action-icon blue">&#127954;</div>
+        <div class="action-label">Start ${stick.name}<small>${stick.duration} driveway session</small></div>
+        <div class="action-arrow">&#8250;</div>
+      </button>`;
+  }
+
+  if (!isOffDay) {
+    actionsHTML += `
+      <button class="action-btn" onclick="switchScreen('workouts')">
+        <div class="action-icon green">&#128170;</div>
+        <div class="action-label">Browse All Workouts<small>Phase routines + quick sessions</small></div>
+        <div class="action-arrow">&#8250;</div>
+      </button>`;
+  }
+
+  actionsEl.innerHTML = actionsHTML;
+
+  // Phase progress
+  const progressEl = document.getElementById("phase-progress");
+  const phases = ["BASE","BUILD","PEAK","TAPER"];
+  const pct = getPhaseProgress(info.phase);
+  progressEl.innerHTML = `
+    <h3>Your Journey</h3>
+    <div class="phase-bar-track"><div class="phase-bar-fill ${phaseClass(info.phase)}" style="width:${pct}%"></div></div>
+    <div class="phase-labels">
+      ${phases.map(p => `<div class="phase-label ${info.phase === p ? 'active' : ''}"><span class="dot"></span>${p}</div>`).join('')}
+    </div>`;
+
+  // Week glance
+  const week = getCurrentWeek();
+  const weekEl = document.getElementById("week-glance");
+  const shortDays = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+  const todayShort = shortDays[info.dayOfWeek];
+  weekEl.innerHTML = `
+    <h3>This Week</h3>
+    ${week.days.map(d => {
+      const isToday = d.d.startsWith(todayShort);
+      return `<div class="week-day ${isToday ? 'is-today' : ''}">
+        <div class="week-day-name">${d.d.split(' ')[0]}</div>
+        <div class="week-day-plan">${d.t}</div>
+      </div>`;
+    }).join('')}`;
+}
+
+function getDefaultPlan(dow) {
+  const plans = {
+    1: "Taekwondo + 15 min driveway",
+    2: "Religious 4:00 → Ice 5:15-6:05 → 20 min driveway",
+    3: "20 min light workout → Math 4:45-6:15 → 20 min driveway",
+    4: "Religious 4:00 → Taekwondo → 15 min driveway",
+    5: "Ice power skating (evening)",
+    6: "Workout morning (45-60 min) → 25 min driveway"
+  };
+  return plans[dow] || "Training day";
+}
+
+// ═══════════════════════════════════════
+// ROUTINES (Workouts, Stick)
+// ═══════════════════════════════════════
 function renderRoutineCard(r) {
   return `
-    <div class="workout-card">
-      <h4>${r.name} <span class="time-pill">${r.duration}</span></h4>
-      ${r.phase ? `<div style="margin-bottom:6px;"><span class="phase-pill">${r.phase}</span></div>` : ''}
-      <p class="blurb">${r.blurb}</p>
-      <ol>${r.steps.slice(0, 8).map(s => `<li><strong>${fmtTime(s.sec)}</strong> — ${s.text}</li>`).join('')}${r.steps.length > 8 ? `<li style="opacity:.7">+ ${r.steps.length - 8} more steps...</li>` : ''}</ol>
-      <button class="start-btn" data-routine="${r.id}">▶ Start Guided Workout</button>
+    <div class="routine-card">
+      <div class="routine-card-top"><h3>${r.name}</h3><span class="routine-dur">${r.duration}</span></div>
+      ${r.phase ? `<span class="routine-phase ${phaseClass(r.phase)}">${r.phase}</span>` : ''}
+      <div class="routine-blurb">${r.blurb}</div>
+      <button class="routine-start-btn" data-routine="${r.id}">Start Guided Workout</button>
     </div>`;
 }
 
 function renderRoutines() {
-  document.getElementById("phase-routines-grid").innerHTML = PHASE_ROUTINES.map(r => renderRoutineCard(r)).join('');
-  document.getElementById("quick-routines-grid").innerHTML = QUICK_ROUTINES.map(r => renderRoutineCard(r)).join('');
-  document.getElementById("stick-routines-grid").innerHTML = STICK_ROUTINES.map(r => renderRoutineCard(r)).join('');
-  document.querySelectorAll(".start-btn").forEach(btn => {
-    btn.addEventListener("click", () => startWorkout(btn.dataset.routine));
+  document.getElementById("phase-routines").innerHTML = PHASE_ROUTINES.map(renderRoutineCard).join('');
+  document.getElementById("quick-routines").innerHTML = QUICK_ROUTINES.map(renderRoutineCard).join('');
+  document.getElementById("stick-routines").innerHTML = STICK_ROUTINES.map(renderRoutineCard).join('');
+  document.querySelectorAll(".routine-start-btn").forEach(btn => {
+    btn.addEventListener("click", (e) => { e.stopPropagation(); startWorkout(btn.dataset.routine); });
   });
 }
 
+// ═══════════════════════════════════════
+// WEEKLY PLAN
+// ═══════════════════════════════════════
 function renderWeeklyPlan() {
-  const target = document.getElementById("weekly-plan");
-  target.innerHTML = WEEKLY_PLAN.map(w => `
-    <div class="week-card" style="margin-bottom:10px;">
-      <div class="week-card-head">
-        <h3>Week ${w.num} · ${w.date}${w.focus ? ' — ' + w.focus : ''}</h3>
-        <span class="week-phase ${phaseClass(w.phase)}">${w.phase}</span>
+  const el = document.getElementById("weekly-plan");
+  el.innerHTML = WEEKLY_PLAN.map(w => `
+    <div class="plan-week" data-week="${w.num}">
+      <div class="plan-week-head" onclick="this.parentElement.classList.toggle('open')">
+        <h3>Week ${w.num}${w.focus ? ' — ' + w.focus : ''}</h3>
+        <span class="plan-week-phase ${phaseClass(w.phase)}">${w.phase}</span>
       </div>
-      ${w.days.map(d => `<div class="day-row"><div class="day-name">${d.d}</div><div class="day-plan">${d.t}</div></div>`).join('')}
-    </div>
-  `).join('');
+      <div class="plan-week-days">
+        ${w.days.map(d => `<div class="plan-day"><div class="plan-day-name">${d.d}</div><div class="plan-day-text">${d.t}</div></div>`).join('')}
+      </div>
+    </div>`).join('');
 }
 
+// ═══════════════════════════════════════
+// EXERCISE LIBRARY
+// ═══════════════════════════════════════
 function renderCatFilters() {
   const cats = categoriesFor(libTab);
   const container = document.getElementById("cat-filters");
@@ -1109,7 +1565,7 @@ function renderCatFilters() {
 }
 
 function renderLibrary() {
-  const data = TABS[libTab];
+  const data = TABS_DATA[libTab];
   const filtered = data.filter(d => {
     if (activeCat && d.cat !== activeCat) return false;
     if (activeDiff && d.diff !== activeDiff) return false;
@@ -1118,24 +1574,23 @@ function renderLibrary() {
   });
   document.getElementById("count").textContent = `${filtered.length} exercise${filtered.length === 1 ? '' : 's'}`;
   const grid = document.getElementById("grid");
-  if (!filtered.length) { grid.innerHTML = `<div class="empty">No exercises match those filters.</div>`; return; }
+  if (!filtered.length) { grid.innerHTML = `<div style="text-align:center;padding:40px;color:var(--text3);">No exercises match those filters.</div>`; return; }
   grid.innerHTML = filtered.map(d => {
     const hasVideo = !!d.vid;
-    // Open YouTube directly in a new tab — works in Cowork sandbox AND on iPod
     const btn = hasVideo
-      ? `<a class="video-link has-video" href="${ytWatch(d.vid)}" target="_blank" rel="noopener">Watch Tutorial</a>`
+      ? `<a class="video-link" href="${ytWatch(d.vid)}" target="_blank" rel="noopener">Watch Tutorial</a>`
       : `<a class="video-link search-only" href="${ytLink(d.yt)}" target="_blank" rel="noopener">Search YouTube</a>`;
     return `
-    <div class="card">
-      <div class="card-header"><h3>${d.name}</h3><span class="diff ${diffClass(d.diff)}">${d.diff}</span></div>
-      <span class="cat-pill">${d.cat}</span>
-      <div class="meta"><span>⏱ ${d.time}</span><span>🎒 ${d.equip}</span></div>
-      <p class="desc">${d.desc}</p>
-      <details>
+    <div class="drill-card">
+      <div class="drill-card-top"><h3>${d.name}</h3><span class="diff-tag ${diffClass(d.diff)}">${d.diff}</span></div>
+      <div class="drill-cat">${d.cat}</div>
+      <div class="drill-meta"><span>${d.time}</span><span>${d.equip}</span></div>
+      <div class="drill-desc">${d.desc}</div>
+      <details class="drill-details">
         <summary>How to do it</summary>
         <div class="body">
           <ol>${d.steps.map(s => `<li>${s}</li>`).join("")}</ol>
-          ${d.tip ? `<div class="tip"><strong>Coach's tip:</strong> ${d.tip}</div>` : ""}
+          ${d.tip ? `<div class="drill-tip"><strong>Tip:</strong> ${d.tip}</div>` : ""}
         </div>
       </details>
       ${btn}
@@ -1143,15 +1598,21 @@ function renderLibrary() {
   }).join("");
 }
 
-document.querySelectorAll(".tab").forEach(t => {
-  t.addEventListener("click", () => {
-    document.querySelectorAll(".tab").forEach(x => x.classList.remove("active"));
-    document.querySelectorAll(".tab-pane").forEach(x => x.classList.remove("active"));
-    t.classList.add("active");
-    document.getElementById("pane-" + t.dataset.pane).classList.add("active");
-  });
+// ═══════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════
+function switchScreen(name) {
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  document.getElementById("screen-" + name).classList.add("active");
+  document.querySelectorAll(".nav-btn").forEach(b => b.classList.toggle("active", b.dataset.screen === name));
+  window.scrollTo(0, 0);
+}
+
+document.querySelectorAll(".nav-btn").forEach(btn => {
+  btn.addEventListener("click", () => switchScreen(btn.dataset.screen));
 });
 
+// Library tabs
 document.querySelectorAll("#lib-tabs .chip").forEach(btn => {
   btn.addEventListener("click", () => {
     document.querySelectorAll("#lib-tabs .chip").forEach(b => b.classList.remove("active"));
@@ -1162,6 +1623,7 @@ document.querySelectorAll("#lib-tabs .chip").forEach(btn => {
   });
 });
 
+// Difficulty filters
 document.querySelectorAll("#diff-filters .chip").forEach(btn => {
   btn.addEventListener("click", () => {
     activeDiff = activeDiff === btn.dataset.diff ? null : btn.dataset.diff;
@@ -1172,7 +1634,9 @@ document.querySelectorAll("#diff-filters .chip").forEach(btn => {
 
 document.getElementById("search").addEventListener("input", e => { searchTerm = e.target.value; renderLibrary(); });
 
+// ═══════════════════════════════════════
 // TIMER ENGINE
+// ═══════════════════════════════════════
 const modal = document.getElementById("timer-modal");
 const tActive = document.getElementById("timer-active");
 const tDone = document.getElementById("timer-done-screen");
@@ -1195,6 +1659,7 @@ function findRoutine(id) {
   }
   return null;
 }
+
 function startWorkout(routineId) {
   const r = findRoutine(routineId); if (!r) return;
   state = { routine: r, stepIdx: 0, secLeft: r.steps[0].sec, paused: false, completedSec: 0, startedAt: Date.now() };
@@ -1202,6 +1667,7 @@ function startWorkout(routineId) {
   modal.classList.add("show"); document.body.style.overflow = "hidden";
   renderTimer(); ensureTick();
 }
+
 function renderTimer() {
   if (!state) return;
   const { routine, stepIdx, secLeft } = state;
@@ -1213,8 +1679,9 @@ function renderTimer() {
   tProgress.style.width = (((step.sec - secLeft) / step.sec) * 100) + "%";
   const next = routine.steps[stepIdx + 1];
   tNextUp.innerHTML = next ? `Next: <strong>${next.text}</strong>` : `<strong>Last step!</strong>`;
-  tPause.textContent = state.paused ? "▶ Resume" : "⏸ Pause";
+  tPause.textContent = state.paused ? "Resume" : "Pause";
 }
+
 let tickHandle = null;
 function ensureTick() {
   if (tickHandle) return;
@@ -1229,6 +1696,7 @@ function ensureTick() {
     renderTimer();
   }, 1000);
 }
+
 function beep() {
   try {
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -1241,16 +1709,19 @@ function beep() {
     if (navigator.vibrate) navigator.vibrate(150);
   } catch(e) {}
 }
+
 function finishWorkout() {
   tActive.style.display = "none"; tDone.style.display = "";
   document.getElementById("done-time").textContent = fmtMMSS(Math.round((Date.now() - state.startedAt) / 1000));
   document.getElementById("done-steps").textContent = state.routine.steps.length;
   beep(); setTimeout(beep, 250); setTimeout(beep, 500);
 }
+
 function endWorkout() {
   modal.classList.remove("show"); document.body.style.overflow = "";
   state = null; if (tickHandle) { clearInterval(tickHandle); tickHandle = null; }
 }
+
 tPause.addEventListener("click", () => { if (state) { state.paused = !state.paused; renderTimer(); } });
 tSkip.addEventListener("click", () => {
   if (!state) return;
@@ -1264,6 +1735,10 @@ tAdd.addEventListener("click", () => { if (state) { state.secLeft += 15; renderT
 tClose.addEventListener("click", () => { if (confirm("End workout early?")) endWorkout(); });
 tFinish.addEventListener("click", endWorkout);
 
+// ═══════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════
+renderToday();
 renderRoutines();
 renderWeeklyPlan();
 renderCatFilters();
