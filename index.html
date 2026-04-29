@@ -430,6 +430,15 @@ body {
 }
 .timer-progress { height: 6px; background: rgba(255,255,255,0.12); border-radius: 3px; overflow: hidden; margin-bottom: 32px; }
 .timer-progress-bar { height: 100%; background: white; border-radius: 3px; transition: width 1s linear; }
+/* ─── REST / TRANSITION STEPS ─── */
+.timer-rest-mode .timer-step-text { color: rgba(255,255,255,0.7); }
+.timer-rest-mode .timer-display { color: rgba(48,209,88,0.9); }
+.timer-rest-mode .timer-progress-bar { background: #30d158; }
+.tsl-item.rest { font-style: italic; opacity: 0.3; }
+.tsl-item.rest.active { opacity: 0.7; }
+.tsl-item.rest .tsl-num { background: rgba(48,209,88,0.2); }
+.tsl-item.rest.active .tsl-num { background: #30d158; }
+
 .timer-reps-mode .timer-display { font-size: 48px; opacity: 0.3; }
 .timer-reps-mode .timer-progress { display: none; }
 .timer-reps-info { font-size: 20px; font-weight: 800; text-align: center; margin-bottom: 16px; letter-spacing: -0.3px; }
@@ -2103,9 +2112,49 @@ function showStepMsg(text) {
   }, 1500);
 }
 
+function getExerciseName(text) {
+  // Extract the core exercise name from step text (before "—" or reps info)
+  return text.replace(/\s*[\u2014—–-]\s*.*/,'').replace(/\s*\(.*\)/,'').replace(/\s*(set|round)\s*\d+/i,'').trim().toLowerCase();
+}
+
+function isRestStep(step) { return !!step.rest; }
+
+function isRecoverStep(text) {
+  const t = text.toLowerCase();
+  return t.includes("recover") || t.includes("cool down") || t.includes("cool-down") ||
+         t.includes("easy walk") || t.includes("stretch") || t.includes("rest ");
+}
+
+function expandStepsWithRest(steps) {
+  const expanded = [];
+  for (let i = 0; i < steps.length; i++) {
+    expanded.push(steps[i]);
+    // Don't add rest after the last step
+    if (i >= steps.length - 1) continue;
+    // Don't add rest after steps that are already recovery/rest
+    if (isRecoverStep(steps[i].text)) continue;
+    // Don't add rest before steps that are already recovery/rest
+    if (isRecoverStep(steps[i + 1].text)) continue;
+
+    const curName = getExerciseName(steps[i].text);
+    const nextName = getExerciseName(steps[i + 1].text);
+
+    if (curName === nextName) {
+      // Same exercise, different set — 30s rest
+      expanded.push({ sec: 30, text: "Rest — 30 sec before next set", rest: true });
+    } else {
+      // Different exercise — 45s transition
+      const nextLabel = steps[i + 1].text.split("—")[0].trim();
+      expanded.push({ sec: 45, text: `Transition — get ready for ${nextLabel}`, rest: true });
+    }
+  }
+  return expanded;
+}
+
 function startWorkout(routineId) {
   const r = findRoutine(routineId); if (!r) return;
-  state = { routine: r, stepIdx: 0, secLeft: r.steps[0].sec, paused: true, completedSec: 0, startedAt: Date.now() };
+  const expanded = { ...r, steps: expandStepsWithRest(r.steps) };
+  state = { routine: expanded, originalRoutine: r, stepIdx: 0, secLeft: expanded.steps[0].sec, paused: true, completedSec: 0, startedAt: Date.now() };
   tActive.style.display = ""; tDone.style.display = "none";
   modal.classList.add("show"); document.body.style.overflow = "hidden";
   renderTimer();
@@ -2177,11 +2226,23 @@ function renderTimer() {
     videoEl.innerHTML = "";
   }
 
+  // Rest mode
+  const isRest = !!step.rest;
+  if (isRest) {
+    tActive.classList.add("timer-rest-mode");
+    tActive.classList.remove("timer-reps-mode");
+  } else {
+    tActive.classList.remove("timer-rest-mode");
+  }
+
   // Reps mode: show Done button, hide timer countdown focus
   const repsInfo = document.getElementById("timer-reps-info");
-  if (reps) {
+  if (!isRest && reps) {
     tActive.classList.add("timer-reps-mode");
     repsInfo.textContent = "Complete your reps, then tap Done";
+  } else if (!isRest) {
+    tActive.classList.remove("timer-reps-mode");
+    repsInfo.textContent = "";
   } else {
     tActive.classList.remove("timer-reps-mode");
     repsInfo.textContent = "";
@@ -2189,11 +2250,15 @@ function renderTimer() {
 
   // Full step list
   const listEl = document.getElementById("timer-step-list");
+  let stepNum = 0;
   listEl.innerHTML = `<h4>Full Workout</h4>` + routine.steps.map((s, i) => {
-    const cls = i === stepIdx ? "active" : i < stepIdx ? "done" : "";
-    const isRep = isRepStep(s.text);
-    const timeLabel = isRep ? "reps" : fmtTime(s.sec);
-    return `<div class="tsl-item ${cls}"><span class="tsl-num">${i + 1}</span><span class="tsl-text">${s.text}</span><span class="tsl-time">${timeLabel}</span></div>`;
+    const isR = !!s.rest;
+    if (!isR) stepNum++;
+    const cls = (i === stepIdx ? "active" : i < stepIdx ? "done" : "") + (isR ? " rest" : "");
+    const isRep = !isR && isRepStep(s.text);
+    const timeLabel = isR ? fmtTime(s.sec) : isRep ? "reps" : fmtTime(s.sec);
+    const num = isR ? "&#9201;" : stepNum;
+    return `<div class="tsl-item ${cls}"><span class="tsl-num">${num}</span><span class="tsl-text">${s.text}</span><span class="tsl-time">${timeLabel}</span></div>`;
   }).join('');
   // Scroll active step into view
   const activeItem = listEl.querySelector(".tsl-item.active");
@@ -2207,11 +2272,23 @@ function ensureTick() {
     if (!state || state.paused) return;
     state.secLeft--;
     if (state.secLeft <= 0) {
-      beep(); state.completedSec += state.routine.steps[state.stepIdx].sec; state.stepIdx++;
+      const justFinished = state.routine.steps[state.stepIdx];
+      beep(); state.completedSec += justFinished.sec; state.stepIdx++;
       if (state.stepIdx >= state.routine.steps.length) { finishWorkout(); return; }
       state.secLeft = state.routine.steps[state.stepIdx].sec;
-      showStepMsg("Stop Maysa, Good Work!");
-      speak("Stop Maysa, Good Work!");
+      const nextStep = state.routine.steps[state.stepIdx];
+      if (justFinished.rest) {
+        // Coming off a rest — announce the next exercise
+        const label = nextStep.text.split("—")[0].trim();
+        speak(label);
+      } else if (nextStep.rest) {
+        // Going into rest — good work message
+        showStepMsg("Good work! Rest up.");
+        speak("Good work! Take a breather.");
+      } else {
+        showStepMsg("Stop Maysa, Good Work!");
+        speak("Stop Maysa, Good Work!");
+      }
     }
     renderTimer();
   }, 1000);
@@ -2258,7 +2335,8 @@ if ('speechSynthesis' in window) {
 function finishWorkout() {
   tActive.style.display = "none"; tDone.style.display = "";
   document.getElementById("done-time").textContent = fmtMMSS(Math.round((Date.now() - state.startedAt) / 1000));
-  document.getElementById("done-steps").textContent = state.routine.steps.length;
+  const exerciseSteps = state.routine.steps.filter(s => !s.rest).length;
+  document.getElementById("done-steps").textContent = exerciseSteps;
   recordCompletedWorkout();
   beep(); setTimeout(beep, 250); setTimeout(beep, 500);
   setTimeout(() => speak("Killer work Maysa! Time to recover. Drink some water, grab a snack, and stretch it out. You earned it."), 600);
